@@ -15,9 +15,13 @@ class Image(TimeStampedModel):
 
     """ Image Model """
 
-    creator = models.ForeignKey(User, related_name='images' on_delete=models.CASCADE)
+    creator = models.ForeignKey(
+        User, related_name='images', on_delete=models.CASCADE)
     caption = models.TextField(blank=True)
     location = models.CharField(max_length=140, blank=True)
+
+    def __str__(self):
+        return f"{self.caption}"
 
 
 class Like(TimeStampedModel):

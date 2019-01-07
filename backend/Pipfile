@@ -9,6 +9,7 @@ autopep8 = "*"
 
 [packages]
 django = "*"
+django-imagekit = "*"
 
 [requires]
 python_version = "3.7"
