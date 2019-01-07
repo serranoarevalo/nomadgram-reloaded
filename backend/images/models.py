@@ -15,15 +15,22 @@ class Image(TimeStampedModel):
 
     """ Image Model """
 
+    creator = models.ForeignKey(User, related_name='images' on_delete=models.CASCADE)
+    caption = models.TextField(blank=True)
+    location = models.CharField(max_length=140, blank=True)
+
 
 class Like(TimeStampedModel):
 
     """ Like Model """
 
     image = models.ForeignKey(
-        Image, related_name='comments', on_delete=models.CASCADE)
-    user = models.ForeignKey(
-        User, related_name='comments', on_delete=models.CASCADE)
+        Image, related_name='likes', on_delete=models.CASCADE)
+    creator = models.ForeignKey(
+        User, related_name='likes', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.creator.username} / {self.created_at}"
 
 
 class Comment(TimeStampedModel):
@@ -33,5 +40,8 @@ class Comment(TimeStampedModel):
     message = models.TextField()
     image = models.ForeignKey(
         Image, related_name='comments', on_delete=models.CASCADE)
-    user = models.ForeignKey(
+    creator = models.ForeignKey(
         User, related_name='comments', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.creator.username}: {self.message}"

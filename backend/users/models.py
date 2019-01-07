@@ -15,3 +15,6 @@ class Profile(models.Model):
     bio = models.TextField(default='')
     website = models.URLField(blank=True)
     gender = models.CharField(max_length=1, choices=GENDERS)
+
+    def __str__(self):
+        return self.user.username
