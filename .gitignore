@@ -167,4 +167,4 @@ typings/
 
 node_modules/**/*
 .expo/**/*
-.lock
+Pipfile.lock
