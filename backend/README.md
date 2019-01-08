@@ -8,10 +8,10 @@
 ## Resolvers
 
 - [x] Get Feed
+- [x] Like Photo
+- [x] Unlike Photo
 - [ ] Comment on Photo
 - [ ] Delete Comment on Photo
-- [ ] Like Photo
-- [ ] Unlike Photo
 - [ ] See Photo's Likes
 - [ ] See User Profile
 - [ ] See User Followers

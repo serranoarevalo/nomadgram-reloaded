@@ -22,9 +22,9 @@ class Profile(models.Model):
                                  format='JPEG',
                                  options={'quality': 60}, blank=True)
     following = models.ManyToManyField(
-        'self', blank=True)
+        'self', blank=True, symmetrical=False, related_name='following_users')
     followers = models.ManyToManyField(
-        'self', blank=True)
+        'self', blank=True, symmetrical=False, related_name='followed_by')
 
     def __str__(self):
         return self.user.username

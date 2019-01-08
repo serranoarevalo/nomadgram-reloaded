@@ -3,7 +3,13 @@ from graphene_django.types import DjangoObjectType
 from . import models
 
 
-class ImageType(DjangoObjectType):
+class ProfileType(DjangoObjectType):
 
     class Meta:
-        model = models.
+        model = models.Profile
+
+
+class UserType(DjangoObjectType):
+
+    class Meta:
+        model = models.User
