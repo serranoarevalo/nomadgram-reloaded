@@ -1,6 +1,6 @@
 import graphene
 from graphene_django.types import DjangoObjectType
-from . import models, types
+from . import models
 from users import types as user_types
 from config import types as config_types
 
@@ -26,8 +26,12 @@ class CommentType(DjangoObjectType):
 
 
 class FeedResponse(graphene.ObjectType, config_types.ResponseFields):
-    images = graphene.List(types.ImageType)
+    images = graphene.List(ImageType)
 
 
 class LikePhotoResponse(graphene.ObjectType, config_types.ResponseFields):
     pass
+
+
+class AddCommentResponse(graphene.ObjectType, config_types.ResponseFields):
+    comment = graphene.Field(CommentType)

@@ -10,7 +10,7 @@
 - [x] Get Feed
 - [x] Like Photo
 - [x] Unlike Photo
-- [ ] Comment on Photo
+- [x] Comment on Photo
 - [ ] Delete Comment on Photo
 - [ ] See Photo's Likes
 - [ ] See User Profile
