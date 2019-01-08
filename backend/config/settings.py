@@ -124,6 +124,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/uploads/'
+
+MEDIA_ROOT = 'uploads/'
+
 
 GRAPHENE = {
     'SCHEMA': 'config.schema.schema'

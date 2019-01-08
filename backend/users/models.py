@@ -21,8 +21,10 @@ class Profile(models.Model):
                                  processors=[ResizeToFill(100, 50)],
                                  format='JPEG',
                                  options={'quality': 60}, blank=True)
-    following = models.ManyToManyField('self', blank=True)
-    followers = models.ManyToManyField('self', blank=True)
+    following = models.ManyToManyField(
+        'self', blank=True)
+    followers = models.ManyToManyField(
+        'self', blank=True)
 
     def __str__(self):
         return self.user.username
