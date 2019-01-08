@@ -14,15 +14,15 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(default='')
+    bio = models.TextField(default='', blank=True)
     website = models.URLField(blank=True)
     gender = models.CharField(max_length=1, choices=GENDERS)
     avatar = ProcessedImageField(upload_to='avatars',
                                  processors=[ResizeToFill(100, 50)],
                                  format='JPEG',
-                                 options={'quality': 60})
-    following = models.ManyToManyField('self')
-    followers = models.ManyToManyField('self')
+                                 options={'quality': 60}, blank=True)
+    following = models.ManyToManyField('self', blank=True)
+    followers = models.ManyToManyField('self', blank=True)
 
     def __str__(self):
         return self.user.username

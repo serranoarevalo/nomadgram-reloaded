@@ -1,9 +1,8 @@
 import graphene
+from images import schema as images_schema
 
-import schema from images as images_schema
 
-
-class Query(images_schema.Query):
+class Query(images_schema.Query, graphene.ObjectType):
     pass
 
 
