@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from imagekit.models import ProcessedImageField
 
 
 class TimeStampedModel(models.Model):
@@ -19,6 +20,8 @@ class Image(TimeStampedModel):
         User, related_name='images', on_delete=models.CASCADE)
     caption = models.TextField(blank=True)
     location = models.CharField(max_length=140, blank=True)
+    file = ProcessedImageField(upload_to='images', format='JPEG',
+                               options={'quality': 60})
 
     def __str__(self):
         return f"{self.caption}"
