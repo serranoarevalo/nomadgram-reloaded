@@ -10,8 +10,8 @@ autopep8 = "*"
 [packages]
 django = "*"
 django-imagekit = "*"
-pil = "*"
 pillow = "*"
+graphene-django = ">=2.0"
 
 [requires]
 python_version = "3.7"

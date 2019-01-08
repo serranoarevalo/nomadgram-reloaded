@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'imagekit',
+    'graphene_django',
     # Apps
     'images.apps.ImagesConfig',
     'users.apps.UserConfig',

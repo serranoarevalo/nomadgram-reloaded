@@ -24,7 +24,7 @@ class Image(TimeStampedModel):
                                options={'quality': 60})
 
     def __str__(self):
-        return f"{self.caption}"
+        return self.caption
 
 
 class Like(TimeStampedModel):
