@@ -28,3 +28,15 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    @property
+    def post_count(self):
+        return self.user.images.all().count()
+
+    @property
+    def followers_count(self):
+        return self.followers.all().count()
+
+    @property
+    def following_count(self):
+        return self.following.all().count()

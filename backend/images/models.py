@@ -23,6 +23,14 @@ class Image(TimeStampedModel):
     file = ProcessedImageField(upload_to='images', format='JPEG',
                                options={'quality': 60})
 
+    @property
+    def like_count(self):
+        return self.likes.all().count()
+
+    @property
+    def comment_count(self):
+        return self.comments.all().count()
+
     def __str__(self):
         return self.caption
 

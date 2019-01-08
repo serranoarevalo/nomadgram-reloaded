@@ -4,6 +4,8 @@ from . import models, types
 
 
 class ImageType(DjangoObjectType):
+    like_count = graphene.Int(source='like_count')
+    comment_count = graphene.Int(source='comment_count')
 
     class Meta:
         model = models.Image

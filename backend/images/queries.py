@@ -29,9 +29,7 @@ def resolve_feed(self, info):
 
         images = sorted(
             image_list, key=lambda image: image.created_at, reverse=True)
-
         ok = True
-
         error = ''
 
     else:
