@@ -1,5 +1,5 @@
 import graphene
-from . import models
+from . import models, types
 
 
 class LikeImage(graphene.Mutation):
@@ -9,8 +9,7 @@ class LikeImage(graphene.Mutation):
     class Arguments:
         imageId = graphene.Int(required=True)
 
-    ok = graphene.Boolean(required=True)
-    error = graphene.String()
+    Output = types.LikePhotoResponse
 
     def mutate(self, info, **kwargs):
         id = kwargs.get('imageId')
@@ -37,6 +36,7 @@ class LikeImage(graphene.Mutation):
                 ok = False
                 error = 'ID is mandatory'
                 return LikeImage(ok=ok, error=error)
-        ok = False
-        error = 'You need to log in'
-        return LikeImage(ok=ok, error=error)
+        else:
+            ok = False
+            error = 'You need to log in'
+            return LikeImage(ok=ok, error=error)

@@ -27,3 +27,7 @@ class CommentType(DjangoObjectType):
 
 class FeedResponse(graphene.ObjectType, config_types.ResponseFields):
     images = graphene.List(types.ImageType)
+
+
+class LikePhotoResponse(graphene.ObjectType, config_types.ResponseFields):
+    pass
