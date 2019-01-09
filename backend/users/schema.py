@@ -8,4 +8,6 @@ class Query(object):
 
 
 class Mutation(object):
-    pass
+
+    follow_user = mutations.FollowUser.Field(required=True)
+    unfollow_user = mutations.UnfollowUser.Field(required=True)
