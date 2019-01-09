@@ -21,7 +21,7 @@
 - [x] See One Photo
 - [x] See My Profile
 - [x] Edit My Profile
-- [ ] Update Password
+- [x] Update Password
 - [ ] Edit Photo
 - [ ] Delete Photo
 - [ ] Search Photos

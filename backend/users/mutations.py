@@ -131,3 +131,41 @@ class EditProfile(graphene.Mutation):
         else:
             error = 'You need to log in'
             return types.EditProfileResponse(ok=not ok, error=error)
+
+
+class ChangePassword(graphene.Mutation):
+
+    class Arguments:
+
+        oldPassword = graphene.String(required=True)
+        newPassword = graphene.String(required=True)
+
+    Output = types.ChangePasswordResponse
+
+    def mutate(self, info, **kwargs):
+
+        user = info.context.user
+        oldPassword = kwargs.get('oldPassword')
+        newPassword = kwargs.get('newPassword')
+
+        ok = True
+        error = None
+
+        if user.is_authenticated:
+
+            if user.check_password(oldPassword):
+
+                user.set_password(newPassword)
+
+                user.save()
+
+                return types.ChangePasswordResponse(ok=ok, error=error)
+
+            else:
+
+                error = 'Current password is wrong'
+                return types.ChangePasswordResponse(ok=not ok, error=error)
+
+        else:
+            error = 'You need to log in'
+            return types.ChangePasswordResponse(ok=not ok, error=error)

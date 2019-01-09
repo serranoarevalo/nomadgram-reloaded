@@ -32,7 +32,5 @@ class EditProfileResponse(graphene.ObjectType, config_types.ResponseFields):
     user = graphene.Field(UserType)
 
 
-class GenderEnums(graphene.Enum):
-
-    MALE = 'M'
-    FEMALE = 'F'
+class ChangePasswordResponse(graphene.ObjectType, config_types.ResponseFields):
+    pass
