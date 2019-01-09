@@ -18,6 +18,7 @@ class UserType(DjangoObjectType):
 
     class Meta:
         model = User
+        exclude_fields = ('password',)
 
 
 class UserProfileResponse(graphene.ObjectType, config_types.ResponseFields):
