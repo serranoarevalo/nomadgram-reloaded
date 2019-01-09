@@ -19,12 +19,12 @@
 - [x] Follow User
 - [x] Unfollow User
 - [x] See One Photo
-- [ ] Log In
-- [ ] Log Out
-- [ ] See My Profile
+- [x] See My Profile
 - [ ] Edit My Profile
-- [ ] Upload Photo (AWS with Boto)
 - [ ] Edit Photo
 - [ ] Delete Photo
 - [ ] Search Photos
 - [ ] Search Users
+- [ ] Upload Photo (AWS with Boto)
+- [ ] Log In
+- [ ] Log Out
