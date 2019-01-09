@@ -7,6 +7,9 @@ from config import types as config_types
 
 class ProfileType(DjangoObjectType):
 
+    following_count = graphene.Int(source='followers_count')
+    followers_count = graphene.Int(source='following_count')
+
     class Meta:
         model = models.Profile
 

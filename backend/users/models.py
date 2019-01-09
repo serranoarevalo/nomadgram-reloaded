@@ -13,7 +13,8 @@ class Profile(models.Model):
         ('F', 'Feminine')
     )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE)
     bio = models.TextField(default='', blank=True)
     website = models.URLField(blank=True)
     gender = models.CharField(max_length=1, choices=GENDERS)
