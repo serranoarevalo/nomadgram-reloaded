@@ -26,3 +26,13 @@ class UserProfileResponse(graphene.ObjectType, config_types.ResponseFields):
 
 class FollowUnfollowResponse(graphene.ObjectType, config_types.ResponseFields):
     pass
+
+
+class EditProfileResponse(graphene.ObjectType, config_types.ResponseFields):
+    user = graphene.Field(UserType)
+
+
+class GenderEnums(graphene.Enum):
+
+    MALE = 'M'
+    FEMALE = 'F'

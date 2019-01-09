@@ -18,10 +18,7 @@ class Profile(models.Model):
     bio = models.TextField(default='', blank=True)
     website = models.URLField(blank=True)
     gender = models.CharField(max_length=1, choices=GENDERS)
-    avatar = ProcessedImageField(upload_to='avatars',
-                                 processors=[ResizeToFill(100, 50)],
-                                 format='JPEG',
-                                 options={'quality': 60}, blank=True)
+    avatar = models.URLField(blank=True)
     following = models.ManyToManyField(
         'self', blank=True, symmetrical=False, related_name='following_users')
     followers = models.ManyToManyField(

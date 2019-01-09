@@ -20,11 +20,13 @@
 - [x] Unfollow User
 - [x] See One Photo
 - [x] See My Profile
-- [ ] Edit My Profile
+- [x] Edit My Profile
+- [ ] Update Password
 - [ ] Edit Photo
 - [ ] Delete Photo
 - [ ] Search Photos
 - [ ] Search Users
+- [ ] Check Username
 - [ ] Upload Photo (AWS with Boto)
 - [ ] Log In
 - [ ] Log Out
