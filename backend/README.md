@@ -27,6 +27,6 @@
 - [x] Upload Photo
 - [x] Search Photos
 - [x] Search Users
-- [ ] Check Username
+- [x] Check Username
 - [ ] Log In
 - [ ] Log Out
