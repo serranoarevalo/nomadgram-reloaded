@@ -11,8 +11,8 @@
 - [x] Like Photo
 - [x] Unlike Photo
 - [x] Comment on Photo
-- [ ] Delete Comment on Photo
-- [ ] See Photo's Likes
+- [x] Delete Comment on Photo
+- [x] See Photo's Likes
 - [ ] See User Profile
 - [ ] See User Followers
 - [ ] See User Following

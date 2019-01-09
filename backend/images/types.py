@@ -39,3 +39,7 @@ class AddCommentResponse(graphene.ObjectType, config_types.ResponseFields):
 
 class DeleteCommentResponse(graphene.ObjectType, config_types.ResponseFields):
     pass
+
+
+class PhotoLikeResponse(graphene.ObjectType, config_types.ResponseFields):
+    likes = graphene.List(LikeType)

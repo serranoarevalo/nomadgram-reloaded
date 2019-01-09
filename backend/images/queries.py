@@ -39,3 +39,27 @@ def resolve_feed(self, info):
         error = 'You need to be authenticated'
 
     return types.FeedResponse(ok=ok, images=images, error=error)
+
+
+def resolve_photo_likes(self, info, **kwargs):
+
+    imageId = kwargs.get('imageId')
+    user = info.context.user
+
+    ok = True
+    error = None
+
+    if user.is_authenticated:
+
+        try:
+            image = models.Image.objects.get(id=imageId)
+        except models.Image.DoesNotExist:
+            error = 'Image Not Found'
+            return types.PhotoLikeResponse(ok=not ok, error=error)
+
+        likes = image.likes.all()
+        return types.PhotoLikeResponse(ok=ok, error=error, likes=likes)
+
+    else:
+        error = 'You need to be authenticated'
+        return types.PhotoLikeResponse(ok=not ok, error=error)
