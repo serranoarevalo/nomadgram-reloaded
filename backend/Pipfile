@@ -12,6 +12,7 @@ django = "*"
 django-imagekit = "*"
 pillow = "*"
 graphene-django = ">=2.0"
+django-graphql-jwt = "*"
 
 [requires]
 python_version = "3.7"

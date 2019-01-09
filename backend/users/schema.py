@@ -1,4 +1,5 @@
 import graphene
+import graphql_jwt
 from . import types, mutations, queries
 
 
@@ -26,3 +27,4 @@ class Mutation(object):
     unfollow_user = mutations.UnfollowUser.Field(required=True)
     edit_profile = mutations.EditProfile.Field(required=True)
     change_password = mutations.ChangePassword.Field(required=True)
+    log_in = graphql_jwt.ObtainJSONWebToken.Field()

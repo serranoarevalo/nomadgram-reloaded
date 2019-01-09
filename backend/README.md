@@ -28,5 +28,4 @@
 - [x] Search Photos
 - [x] Search Users
 - [x] Check Username
-- [ ] Log In
-- [ ] Log Out
+- [x] Log In
