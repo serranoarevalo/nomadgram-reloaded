@@ -51,3 +51,7 @@ class ImageDetailResponse(graphene.ObjectType, config_types.ResponseFields):
 
 class EditImageResponse(graphene.ObjectType, config_types.ResponseFields):
     image = graphene.Field(ImageType)
+
+
+class DeleteImageResponse(graphene.ObjectType, config_types.ResponseFields):
+    pass

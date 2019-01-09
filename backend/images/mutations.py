@@ -177,3 +177,42 @@ class EditImage(graphene.Mutation):
         else:
             error = 'You need to log in'
             return types.EditImageResponse(ok=not ok, error=error)
+
+
+class DeleteImage(graphene.Mutation):
+
+    class Arguments:
+        imageId = graphene.Int(required=True)
+
+    Output = types.DeleteImageResponse
+
+    def mutate(self, info, **kwargs):
+
+        user = info.context.user
+        imageId = kwargs.get("imageId")
+
+        ok = True
+        error = None
+
+        if user.is_authenticated:
+
+            try:
+                image = models.Image.objects.get(id=imageId)
+            except models.Image.DoesNotExist:
+                error = "Image Not Found"
+                return types.DeleteImageResponse(ok=not ok, error=error)
+
+            if image.creator.id == user.id:
+
+                image.delete()
+
+                return types.DeleteImageResponse(ok=ok, error=error)
+
+            else:
+
+                error = "Unauthorized"
+                return types.DeleteImageResponse(ok=not ok, error=error)
+
+        else:
+            error = "Unauthorized"
+            return types.DeleteImageResponse(ok=not ok, error=error)
