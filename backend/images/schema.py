@@ -18,3 +18,4 @@ class Mutation(object):
     like_image = mutations.LikeImage.Field(required=True)
     add_comment = mutations.AddComment.Field(required=True)
     delete_comment = mutations.DeleteComment.Field(required=True)
+    edit_image = mutations.EditImage.Field(required=True)

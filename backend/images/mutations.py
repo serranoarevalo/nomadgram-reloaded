@@ -124,3 +124,56 @@ class DeleteComment(graphene.Mutation):
         else:
             error = 'You need to log in'
             return types.DeleteCommentResponse(ok=not ok, error=error)
+
+
+class EditImage(graphene.Mutation):
+
+    class Arguments:
+
+        imageId = graphene.Int(required=True)
+        caption = graphene.String()
+        location = graphene.String()
+
+    Output = types.EditImageResponse
+
+    def mutate(self, info, **kwargs):
+
+        user = info.context.user
+        imageId = kwargs.get('imageId')
+
+        ok = True
+        error = None
+
+        if user.is_authenticated:
+
+            try:
+                image = models.Image.objects.get(id=imageId)
+            except models.Image.DoesNotExist:
+                error = "Image Not Found"
+                return types.EditImageResponse(ok=not ok, error=error)
+
+            if image.creator.id != user.id:
+
+                error = "Unauthorized"
+                return types.EditImageResponse(ok=not ok, error=error)
+
+            else:
+
+                try:
+
+                    caption = kwargs.get('caption', image.caption)
+                    location = kwargs.get('location', image.location)
+
+                    image.caption = caption
+                    image.location = location
+
+                    image.save()
+                    return types.EditImageResponse(ok=ok, error=error, image=image)
+
+                except IntegrityError:
+                    error = "Can't Save Image"
+                    return types.EditImageResponse(ok=not ok, error=error)
+
+        else:
+            error = 'You need to log in'
+            return types.EditImageResponse(ok=not ok, error=error)

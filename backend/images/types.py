@@ -47,3 +47,7 @@ class ImageLikeResponse(graphene.ObjectType, config_types.ResponseFields):
 
 class ImageDetailResponse(graphene.ObjectType, config_types.ResponseFields):
     image = graphene.Field(ImageType)
+
+
+class EditImageResponse(graphene.ObjectType, config_types.ResponseFields):
+    image = graphene.Field(ImageType)

@@ -22,7 +22,7 @@
 - [x] See My Profile
 - [x] Edit My Profile
 - [x] Update Password
-- [ ] Edit Photo
+- [x] Edit Photo
 - [ ] Delete Photo
 - [ ] Search Photos
 - [ ] Search Users
