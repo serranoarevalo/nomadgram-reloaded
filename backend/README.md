@@ -16,9 +16,9 @@
 - [x] See User Profile
 - [x] See User Followers
 - [x] See User Following
-- [ ] Follow User
-- [ ] Unfollow User
-- [ ] See One Photo
+- [x] Follow User
+- [x] Unfollow User
+- [x] See One Photo
 - [ ] Log In
 - [ ] Log Out
 - [ ] See My Profile

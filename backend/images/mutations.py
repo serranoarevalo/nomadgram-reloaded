@@ -10,7 +10,7 @@ class LikeImage(graphene.Mutation):
     class Arguments:
         imageId = graphene.Int(required=True)
 
-    Output = types.LikePhotoResponse
+    Output = types.LikeImageResponse
 
     def mutate(self, info, **kwargs):
         imageId = kwargs.get('imageId')
@@ -22,13 +22,13 @@ class LikeImage(graphene.Mutation):
                 image = models.Image.objects.get(id=imageId)
             except models.Image.DoesNotExist:
                 error = 'Image Not Found'
-                return types.LikePhotoResponse(ok=not ok, error=error)
+                return types.LikeImageResponse(ok=not ok, error=error)
 
             try:
                 like = models.Like.objects.get(
                     creator=user, image=image)
                 like.delete()
-                return types.LikePhotoResponse(ok=ok, error=error)
+                return types.LikeImageResponse(ok=ok, error=error)
             except models.Like.DoesNotExist:
                 pass
 
@@ -36,13 +36,13 @@ class LikeImage(graphene.Mutation):
                 like = models.Like.objects.create(
                     creator=user, image=image)
                 like.save()
-                return types.LikePhotoResponse(ok=ok, error=error)
+                return types.LikeImageResponse(ok=ok, error=error)
             except IntegrityError:
-                error = "Can't Like Photo"
-                return types.LikePhotoResponse(ok=not ok, error=error)
+                error = "Can't Like Image"
+                return types.LikeImageResponse(ok=not ok, error=error)
         else:
             error = 'You need to log in'
-            return types.LikePhotoResponse(ok=not ok, error=error)
+            return types.LikeImageResponse(ok=not ok, error=error)
 
 
 class AddComment(graphene.Mutation):

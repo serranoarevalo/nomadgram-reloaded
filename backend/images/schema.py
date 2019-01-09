@@ -6,8 +6,11 @@ class Query(object):
 
     feed = graphene.Field(types.FeedResponse,
                           resolver=queries.resolve_feed, required=True)
-    photo_likes = graphene.Field(
-        types.PhotoLikeResponse, resolver=queries.resolve_photo_likes, required=True, imageId=graphene.Int(required=True))
+    image_likes = graphene.Field(
+        types.ImageLikeResponse, resolver=queries.resolve_image_likes, required=True, imageId=graphene.Int(required=True))
+
+    image_detail = graphene.Field(types.ImageDetailResponse, resolver=queries.resolve_image_detail,
+                                  required=True, imageId=graphene.Int(required=True))
 
 
 class Mutation(object):

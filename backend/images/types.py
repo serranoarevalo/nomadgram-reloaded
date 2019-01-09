@@ -29,7 +29,7 @@ class FeedResponse(graphene.ObjectType, config_types.ResponseFields):
     images = graphene.List(ImageType)
 
 
-class LikePhotoResponse(graphene.ObjectType, config_types.ResponseFields):
+class LikeImageResponse(graphene.ObjectType, config_types.ResponseFields):
     pass
 
 
@@ -41,5 +41,9 @@ class DeleteCommentResponse(graphene.ObjectType, config_types.ResponseFields):
     pass
 
 
-class PhotoLikeResponse(graphene.ObjectType, config_types.ResponseFields):
+class ImageLikeResponse(graphene.ObjectType, config_types.ResponseFields):
     likes = graphene.List(LikeType)
+
+
+class ImageDetailResponse(graphene.ObjectType, config_types.ResponseFields):
+    image = graphene.Field(ImageType)
