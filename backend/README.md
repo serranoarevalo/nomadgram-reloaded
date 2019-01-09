@@ -26,7 +26,7 @@
 - [x] Delete Photo
 - [x] Upload Photo
 - [x] Search Photos
-- [ ] Search Users
+- [x] Search Users
 - [ ] Check Username
 - [ ] Log In
 - [ ] Log Out
