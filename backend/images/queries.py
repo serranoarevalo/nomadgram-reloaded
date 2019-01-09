@@ -87,3 +87,30 @@ def resolve_image_detail(self, info, **kwargs):
 
         error = "You need to be authenticated"
         return types.ImageDetailResponse(ok=not ok, error=error)
+
+
+def resolve_search_images(self, info, **kwargs):
+
+    user = info.context.user
+    term = kwargs.get('term')
+
+    ok = True
+    error = None
+
+    if user.is_authenticated:
+
+        if len(term) < 4:
+
+            error = "Search Term is Too Short"
+            return types.SearchImagesResponse(ok=not ok, error=error)
+
+        else:
+
+            images = models.Image.objects.filter(caption__icontains=term)
+
+            return types.SearchImagesResponse(ok=ok, error=error, images=images)
+
+    else:
+
+        error = "Unauthorized"
+        return types.SearchImagesResponse(ok=not ok, error=error)

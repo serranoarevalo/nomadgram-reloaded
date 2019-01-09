@@ -59,3 +59,7 @@ class DeleteImageResponse(graphene.ObjectType, config_types.ResponseFields):
 
 class UploadImageResponse(graphene.ObjectType, config_types.ResponseFields):
     image = graphene.Field(ImageType)
+
+
+class SearchImagesResponse(graphene.ObjectType, config_types.ResponseFields):
+    images = graphene.List(ImageType)

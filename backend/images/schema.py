@@ -12,6 +12,9 @@ class Query(object):
     image_detail = graphene.Field(types.ImageDetailResponse, resolver=queries.resolve_image_detail,
                                   required=True, args={'imageId': graphene.Int(required=True)})
 
+    search_images = graphene.Field(types.SearchImagesResponse, resolver=queries.resolve_search_images, required=True, args={
+        'term': graphene.String(required=True)})
+
 
 class Mutation(object):
 

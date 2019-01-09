@@ -34,3 +34,7 @@ class EditProfileResponse(graphene.ObjectType, config_types.ResponseFields):
 
 class ChangePasswordResponse(graphene.ObjectType, config_types.ResponseFields):
     pass
+
+
+class SearchUsersResponse(graphene.ObjectType, config_types.ResponseFields):
+    users = graphene.List(UserType)

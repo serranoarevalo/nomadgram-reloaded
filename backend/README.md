@@ -25,7 +25,7 @@
 - [x] Edit Photo
 - [x] Delete Photo
 - [x] Upload Photo
-- [ ] Search Photos
+- [x] Search Photos
 - [ ] Search Users
 - [ ] Check Username
 - [ ] Log In
