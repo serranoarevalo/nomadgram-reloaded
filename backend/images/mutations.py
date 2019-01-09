@@ -35,7 +35,6 @@ class LikeImage(graphene.Mutation):
             try:
                 like = models.Like.objects.create(
                     creator=user, image=image)
-                like.save()
                 return types.LikeImageResponse(ok=ok, error=error)
             except IntegrityError:
                 error = "Can't Like Image"
@@ -216,3 +215,41 @@ class DeleteImage(graphene.Mutation):
         else:
             error = "Unauthorized"
             return types.DeleteImageResponse(ok=not ok, error=error)
+
+
+class UploadImage(graphene.Mutation):
+
+    class Arguments:
+
+        fileUrl = graphene.String(required=True)
+        caption = graphene.String(required=True)
+        location = graphene.String()
+
+    Output = types.UploadImageResponse
+
+    def mutate(self, info, **kwargs):
+
+        user = info.context.user
+
+        ok = True
+        error = None
+
+        fileUrl = kwargs.get('fileUrl')
+        caption = kwargs.get('caption')
+        location = kwargs.get('location')
+
+        if user.is_authenticated:
+
+            try:
+                image = models.Image.objects.create(
+                    creator=user, caption=caption, location=location, file=fileUrl)
+                return types.UploadImageResponse(ok=ok, error=error, image=image)
+            except IntegrityError as e:
+                print(e)
+                error = "Can't Create Image"
+                return types.UploadImageResponse(ok=not ok, error=error)
+
+        else:
+
+            error = "Unauthorized"
+            return types.UploadImageResponse(ok=not ok, error=error)

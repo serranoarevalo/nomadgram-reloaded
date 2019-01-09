@@ -24,9 +24,9 @@
 - [x] Update Password
 - [x] Edit Photo
 - [x] Delete Photo
+- [x] Upload Photo
 - [ ] Search Photos
 - [ ] Search Users
 - [ ] Check Username
-- [ ] Upload Photo (AWS with Boto)
 - [ ] Log In
 - [ ] Log Out

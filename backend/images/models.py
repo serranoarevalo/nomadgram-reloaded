@@ -19,9 +19,8 @@ class Image(TimeStampedModel):
     creator = models.ForeignKey(
         User, related_name='images', on_delete=models.CASCADE)
     caption = models.TextField()
-    location = models.CharField(max_length=140, blank=True)
-    file = ProcessedImageField(upload_to='images', format='JPEG',
-                               options={'quality': 60})
+    location = models.CharField(max_length=140, blank=True, null=True)
+    file = models.URLField()
 
     @property
     def like_count(self):
