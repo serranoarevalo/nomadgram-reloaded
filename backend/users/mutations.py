@@ -122,7 +122,8 @@ class EditProfile(graphene.Mutation):
                 user.profile.save()
                 user.save()
 
-            except IntegrityError:
+            except IntegrityError as e:
+                print(e)
                 error = "Can't save"
                 return types.EditProfileResponse(ok=not ok, error=error)
 
@@ -200,7 +201,8 @@ class CreateAccount(graphene.Mutation):
             user.first_name = first_name
             user.last_name = last_name
             user.save()
-        except IntegrityError:
+        except IntegrityError as e:
+            print(e)
             error = "Can't Create User Account"
             return types.CreateAccountResponse(ok=not ok, error=error)
 
@@ -209,6 +211,7 @@ class CreateAccount(graphene.Mutation):
                 user=user, gender=gender
             )
             return types.CreateAccountResponse(ok=ok, error=error)
-        except IntegrityError:
+        except IntegrityError as e:
+            print(e)
             error = "Can't Create User Profile"
             return types.CreateAccountResponse(ok=not ok, error=error)

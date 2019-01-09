@@ -36,7 +36,8 @@ class LikeImage(graphene.Mutation):
                 like = models.Like.objects.create(
                     creator=user, image=image)
                 return types.LikeImageResponse(ok=ok, error=error)
-            except IntegrityError:
+            except IntegrityError as e:
+                print(e)
                 error = "Can't Like Image"
                 return types.LikeImageResponse(ok=not ok, error=error)
         else:
@@ -75,7 +76,8 @@ class AddComment(graphene.Mutation):
                 comment = models.Comment.objects.create(
                     message=message, image=image, creator=user)
                 return types.AddCommentResponse(ok=ok, error=error, comment=comment)
-            except IntegrityError:
+            except IntegrityError as e:
+                print(e)
                 error = "Can't create the comment"
                 return types.AddCommentResponse(ok=not ok, error=error, comment=comment)
         else:
@@ -169,7 +171,8 @@ class EditImage(graphene.Mutation):
                     image.save()
                     return types.EditImageResponse(ok=ok, error=error, image=image)
 
-                except IntegrityError:
+                except IntegrityError as e:
+                    print(e)
                     error = "Can't Save Image"
                     return types.EditImageResponse(ok=not ok, error=error)
 
