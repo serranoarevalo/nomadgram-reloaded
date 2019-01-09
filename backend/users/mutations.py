@@ -169,3 +169,46 @@ class ChangePassword(graphene.Mutation):
         else:
             error = 'You need to log in'
             return types.ChangePasswordResponse(ok=not ok, error=error)
+
+
+class CreateAccount(graphene.Mutation):
+
+    class Arguments:
+        first_name = graphene.String(required=True)
+        last_name = graphene.String(required=True)
+        username = graphene.String(required=True)
+        email = graphene.String(required=True)
+        password = graphene.String(required=True)
+        gender = graphene.String(required=True)
+
+    Output = types.CreateAccountResponse
+
+    def mutate(self, info, **kwargs):
+
+        first_name = kwargs.get('first_name')
+        last_name = kwargs.get('last_name')
+        username = kwargs.get('username')
+        email = kwargs.get('email')
+        password = kwargs.get('password')
+        gender = kwargs.get('gender')
+
+        ok = True
+        error = None
+
+        try:
+            user = User.objects.create_user(username, email, password)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+        except IntegrityError:
+            error = "Can't Create User Account"
+            return types.CreateAccountResponse(ok=not ok, error=error)
+
+        try:
+            profile = models.Profile.objects.create(
+                user=user, gender=gender
+            )
+            return types.CreateAccountResponse(ok=ok, error=error)
+        except IntegrityError:
+            error = "Can't Create User Profile"
+            return types.CreateAccountResponse(ok=not ok, error=error)
