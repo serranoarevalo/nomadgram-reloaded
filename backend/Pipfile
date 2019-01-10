@@ -14,6 +14,7 @@ pillow = "*"
 graphene-django = ">=2.0"
 django-graphql-jwt = "*"
 python-dotenv = "*"
+boto3 = "*"
 
 [requires]
 python_version = "3.7"
