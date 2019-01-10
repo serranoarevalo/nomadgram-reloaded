@@ -3,7 +3,6 @@
 - Django
 - Graphene
 - JWT
-- Boto
 
 ## Resolvers
 
