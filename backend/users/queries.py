@@ -92,3 +92,21 @@ def resolve_check_username(self, info, **kwargs):
 
         error = "Unauthorized"
         return types.CheckUsernameResponse(ok=not ok, error=error)
+
+
+def resolve_latest_users(self, info):
+
+    user = info.context.user
+
+    ok = True
+    error = None
+
+    if user.is_authenticated:
+
+        users = models.User.objects.filter().order_by('-date_joined')[:10]
+        return types.LatestUsersResponse(ok=ok, users=users)
+
+    else:
+
+        error = "Unauthorized"
+        return types.LatestUsersResponse(ok=not ok, error=error)

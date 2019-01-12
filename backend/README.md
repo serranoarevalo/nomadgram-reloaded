@@ -30,7 +30,7 @@
 - [x] Check Username
 - [x] Log In
 - [x] Create Account
-- [ ] See Users to Follow
-- [ ] See Latest Images
-- [ ] Get Notifications
+- [x] Get Notifications
+- [x] See New Users to Follow
 - [ ] Mark Notification as Read
+- [ ] See Latest Images

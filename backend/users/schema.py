@@ -20,6 +20,9 @@ class Query(object):
         'username': graphene.String(required=True)
     })
 
+    latest_users = graphene.Field(
+        types.LatestUsersResponse, resolver=queries.resolve_latest_users, required=True)
+
 
 class Mutation(object):
 

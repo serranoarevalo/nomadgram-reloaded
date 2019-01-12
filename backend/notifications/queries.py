@@ -12,7 +12,7 @@ def resolve_get_notifications(self, info, **kwargs):
     if user.is_authenticated:
 
         notifications = models.Notification.objects.filter(target=user)[
-            25 * page:15]
+            25 * page:25]
 
         return types.GetNotificationsResponse(ok=ok, notifications=notifications)
 

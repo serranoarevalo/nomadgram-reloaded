@@ -15,6 +15,9 @@ class Query(object):
     search_images = graphene.Field(types.SearchImagesResponse, resolver=queries.resolve_search_images, required=True, args={
         'term': graphene.String(required=True)})
 
+    latest_images = graphene.Field(
+        types.LatestImagesResponse, resolver=queries.resolve_latest_images, required=True)
+
 
 class Mutation(object):
 

@@ -116,3 +116,21 @@ def resolve_search_images(self, info, **kwargs):
 
         error = "Unauthorized"
         return types.SearchImagesResponse(ok=not ok, error=error)
+
+
+def resolve_latest_images(self, info):
+
+    user = info.context.user
+
+    ok = True
+    error = None
+
+    if user.is_authenticated:
+
+        images = models.Image.objects.filter().order_by('-created_at')[:10]
+        return types.LatestImagesResponse(ok=ok, images=images)
+
+    else:
+
+        error = "Unauthorized"
+        return types.LatestImagesResponse(ok=not ok, error=error)

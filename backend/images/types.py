@@ -66,3 +66,7 @@ class UploadImageResponse(graphene.ObjectType, config_types.ResponseFields):
 
 class SearchImagesResponse(graphene.ObjectType, config_types.ResponseFields):
     images = graphene.List(ImageType)
+
+
+class LatestImagesResponse(graphene.ObjectType, config_types.ResponseFields):
+    images = graphene.List(ImageType)
