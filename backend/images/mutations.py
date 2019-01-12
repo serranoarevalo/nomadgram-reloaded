@@ -33,6 +33,14 @@ class LikeImage(graphene.Mutation):
                 print(e)
                 error = "Can't Like Image"
                 return types.LikeImageResponse(ok=not ok, error=error)
+
+            try:
+                notification_models.Notification.objects.create(
+                    actor=user, target=image.creator, verb="like", payload=image)
+            except IntegrityError as e:
+                print(e)
+                pass
+
         else:
             error = 'You need to log in'
             return types.LikeImageResponse(ok=not ok, error=error)
@@ -65,6 +73,13 @@ class UnlikeImage(graphene.Mutation):
                 like.delete()
                 return types.LikeImageResponse(ok=ok, error=error)
             except models.Like.DoesNotExist:
+                pass
+
+            try:
+                notification = notification_models.Notification.objects.get(
+                    actor=user, target=image.creator, verb="like", payload=image)
+                notification.delete()
+            except notification_models.Notification.DoesNotExist:
                 pass
 
         else:
