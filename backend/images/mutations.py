@@ -122,6 +122,14 @@ class AddComment(graphene.Mutation):
                 print(e)
                 error = "Can't create the comment"
                 return types.AddCommentResponse(ok=not ok, error=error, comment=comment)
+
+            try:
+                notification_models.Notification.objects.create(
+                    actor=user, target=image.creator, verb="comment", payload=image)
+            except IntegrityError as e:
+                print(e)
+                pass
+
         else:
             error = 'You need to log in'
             return types.AddCommentResponse(ok=not ok, error=error, comment=comment)
@@ -163,6 +171,13 @@ class DeleteComment(graphene.Mutation):
             else:
                 error = "Can't Delete Comment"
             return types.DeleteCommentResponse(ok=not ok, error=error)
+
+            try:
+                notification = notification_models.Notification.objects.get(
+                    actor=user, target=image.creator, verb="comment", payload=image)
+                notification.delete()
+            except notification_models.Notification.DoesNotExist:
+                pass
 
         else:
             error = 'You need to log in'
