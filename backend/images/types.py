@@ -33,6 +33,10 @@ class LikeImageResponse(graphene.ObjectType, config_types.ResponseFields):
     pass
 
 
+class UnlikeImageResponse(graphene.ObjectType, config_types.ResponseFields):
+    pass
+
+
 class AddCommentResponse(graphene.ObjectType, config_types.ResponseFields):
     comment = graphene.Field(CommentType)
 

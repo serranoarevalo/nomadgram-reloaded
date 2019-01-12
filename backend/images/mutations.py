@@ -1,5 +1,6 @@
 import graphene
 from django.db import IntegrityError
+from notifications import models as notification_models
 from . import models, types
 
 
@@ -25,14 +26,6 @@ class LikeImage(graphene.Mutation):
                 return types.LikeImageResponse(ok=not ok, error=error)
 
             try:
-                like = models.Like.objects.get(
-                    creator=user, image=image)
-                like.delete()
-                return types.LikeImageResponse(ok=ok, error=error)
-            except models.Like.DoesNotExist:
-                pass
-
-            try:
                 like = models.Like.objects.create(
                     creator=user, image=image)
                 return types.LikeImageResponse(ok=ok, error=error)
@@ -40,6 +33,40 @@ class LikeImage(graphene.Mutation):
                 print(e)
                 error = "Can't Like Image"
                 return types.LikeImageResponse(ok=not ok, error=error)
+        else:
+            error = 'You need to log in'
+            return types.LikeImageResponse(ok=not ok, error=error)
+
+
+class UnlikeImage(graphene.Mutation):
+
+    """ Unlike an Image """
+
+    class Arguments:
+        imageId = graphene.Int(required=True)
+
+    Output = types.UnlikeImageResponse
+
+    def mutate(self, info, **kwargs):
+        imageId = kwargs.get('imageId')
+        user = info.context.user
+        ok = True
+        error = None
+        if user.is_authenticated:
+            try:
+                image = models.Image.objects.get(id=imageId)
+            except models.Image.DoesNotExist:
+                error = 'Image Not Found'
+                return types.LikeImageResponse(ok=not ok, error=error)
+
+            try:
+                like = models.Like.objects.get(
+                    creator=user, image=image)
+                like.delete()
+                return types.LikeImageResponse(ok=ok, error=error)
+            except models.Like.DoesNotExist:
+                pass
+
         else:
             error = 'You need to log in'
             return types.LikeImageResponse(ok=not ok, error=error)
