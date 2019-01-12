@@ -1,10 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFill
+from config import models as config_models
 
 
-class Profile(models.Model):
+class Profile(config_models.TimeStampedModel):
 
     """ Profile Model """
 

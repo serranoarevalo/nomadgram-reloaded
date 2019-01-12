@@ -1,18 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from imagekit.models import ProcessedImageField
+from config import models as config_models
 
 
-class TimeStampedModel(models.Model):
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
-class Image(TimeStampedModel):
+class Image(config_models.TimeStampedModel):
 
     """ Image Model """
 
@@ -34,7 +25,7 @@ class Image(TimeStampedModel):
         return self.caption
 
 
-class Like(TimeStampedModel):
+class Like(config_models.TimeStampedModel):
 
     """ Like Model """
 
@@ -47,7 +38,7 @@ class Like(TimeStampedModel):
         return f"{self.creator.username} / {self.created_at}"
 
 
-class Comment(TimeStampedModel):
+class Comment(config_models.TimeStampedModel):
 
     """ Comment Model """
 

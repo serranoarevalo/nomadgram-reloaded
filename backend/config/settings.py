@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'graphene_django',
     # Apps
     'images.apps.ImagesConfig',
-    'users.apps.UserConfig',
+    'users.apps.UsersConfig',
+    'notifications.apps.NotificationsConfig'
 ]
 
 MIDDLEWARE = [
