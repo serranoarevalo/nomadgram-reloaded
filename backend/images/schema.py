@@ -5,7 +5,7 @@ from . import types, queries, mutations
 class Query(object):
 
     feed = graphene.Field(types.FeedResponse,
-                          resolver=queries.resolve_feed, required=True)
+                          resolver=queries.resolve_feed, required=True, args={'page': graphene.Int()})
     image_likes = graphene.Field(
         types.ImageLikeResponse, resolver=queries.resolve_image_likes, required=True, args={'imageId': graphene.Int(required=True)})
 

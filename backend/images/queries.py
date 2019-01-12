@@ -2,9 +2,10 @@ from django.db import IntegrityError
 from . import types, models
 
 
-def resolve_feed(self, info):
+def resolve_feed(self, info, **kwargs):
 
     user = info.context.user
+    page = kwargs.get('page', 0)
 
     if user.is_authenticated:
 
@@ -14,13 +15,15 @@ def resolve_feed(self, info):
 
         for following_user in following_users:
 
-            user_images = following_user.user.images.all()[:2]
+            print(page)
+
+            user_images = following_user.user.images.all()[2 * page:2]
 
             for image in user_images:
 
                 image_list.append(image)
 
-        my_images = user.images.all()[:2]
+        my_images = user.images.all()[2 * page:2]
 
         for image in my_images:
 
