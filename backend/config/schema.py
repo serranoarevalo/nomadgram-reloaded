@@ -1,9 +1,10 @@
 import graphene
 from images import schema as images_schema
 from users import schema as users_schema
+from notifications import schema as notifications_schema
 
 
-class Query(images_schema.Query, users_schema.Query, graphene.ObjectType):
+class Query(images_schema.Query, users_schema.Query, notifications_schema.Query, graphene.ObjectType):
     pass
 
 
