@@ -2,6 +2,7 @@ import graphene
 from . import models, types
 from django.db import IntegrityError
 from django.contrib.auth.models import User
+from notifications import models as notification_models
 
 
 class FollowUser(graphene.Mutation):
@@ -31,6 +32,13 @@ class FollowUser(graphene.Mutation):
 
             user.profile.following.add(target.profile)
             target.profile.followers.add(user.profile)
+
+            try:
+                notification_models.Notification.objects.create(
+                    actor=user, target=target, verb="follow")
+            except IntegrityError as e:
+                print(e)
+                pass
 
             return types.FollowUnfollowResponse(ok=ok, error=error)
 
@@ -66,6 +74,14 @@ class UnfollowUser(graphene.Mutation):
 
             user.profile.following.remove(target.profile)
             target.profile.followers.remove(user.profile)
+
+            try:
+                notification = notification_models.Notification.objects.get(
+                    actor=user, target=target, verb="follow")
+                notification.delete()
+            except notification_models.Notification.DoesNotExist as e:
+                print(e)
+                pass
 
             return types.FollowUnfollowResponse(ok=ok, error=error)
 
