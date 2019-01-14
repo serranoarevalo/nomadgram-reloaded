@@ -32,5 +32,5 @@
 - [x] Create Account
 - [x] Get Notifications
 - [x] See New Users to Follow
-- [ ] Mark Notification as Read
-- [ ] See Latest Images
+- [x] See Latest Images
+- [x] Mark Notification as Read

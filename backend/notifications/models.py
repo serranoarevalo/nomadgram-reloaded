@@ -18,6 +18,7 @@ class Notification(config_models.TimeStampedModel):
     verb = models.CharField(max_length=10, choices=VERBS)
     payload = models.ForeignKey(
         image_models.Image, on_delete=models.CASCADE, null=True)
+    read = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.actor.username} {self.verb} 👉🏻 {self.target.username}"
