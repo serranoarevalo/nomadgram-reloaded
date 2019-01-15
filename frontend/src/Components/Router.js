@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PropTypes from "prop-types";
 import Auth from "../Routes/Auth";
 import Feed from "../Routes/Feed";
 import EditProfile from "../Routes/EditProfile";
@@ -25,6 +26,12 @@ const LoggedOutPages = () => (
   </Switch>
 );
 
-export default ({ loggedIn }) => (
-  <Router>{loggedIn ? <LoggedInPages /> : <LoggedOutPages />}</Router>
+const AppRouter = ({ isLoggedIn }) => (
+  <Router>{isLoggedIn ? <LoggedInPages /> : <LoggedOutPages />}</Router>
 );
+
+AppRouter.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired
+};
+
+export default AppRouter;
