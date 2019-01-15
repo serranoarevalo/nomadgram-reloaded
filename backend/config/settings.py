@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'imagekit',
     'graphene_django',
+    'corsheaders',
     # Apps
     'images.apps.ImagesConfig',
     'users.apps.UsersConfig',
