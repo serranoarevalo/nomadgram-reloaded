@@ -16,15 +16,32 @@ const footerLinks = [
   "Language"
 ];
 
-const Container = styled.footer``;
+const Container = styled.footer`
+  margin-bottom: 50px;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+`;
 
-const SWrapper = styled(Wrapper)``;
+const SWrapper = styled(Wrapper)`
+  display: flex;
+  justify-content: space-between;
+`;
 
-const List = styled.ul``;
+const List = styled.ul`
+  display: flex;
+`;
 
-const ListItem = styled.li``;
+const ListItem = styled.li`
+  color: ${props => props.theme.darkBlueColor};
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
+`;
 
-const Copyright = styled.span``;
+const Copyright = styled.span`
+  color: ${props => props.theme.greyColor};
+`;
 
 const Footer = () => (
   <Container>
