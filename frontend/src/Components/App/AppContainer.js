@@ -5,6 +5,7 @@ import Router from "../Router";
 import GlobalStyles from "../../Styles/GlobalStyles";
 import theme from "../../Styles/theme";
 import { APP_QUERIES } from "./AppQueries";
+import Footer from "../Footer";
 
 export default () => (
   <ThemeProvider theme={theme}>
@@ -17,6 +18,7 @@ export default () => (
           }
         }) => <Router isLoggedIn={isLoggedIn} />}
       </Query>
+      <Footer />
     </>
   </ThemeProvider>
 );

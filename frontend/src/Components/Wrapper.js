@@ -7,6 +7,8 @@ const Div = styled.div`
   max-width: 935px;
 `;
 
-const Wrapper = ({ children }) => <Div>{children}</Div>;
+const Wrapper = ({ className, children }) => (
+  <Div className={className}>{children}</Div>
+);
 
 export default Wrapper;
