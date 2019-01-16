@@ -1,7 +1,8 @@
 import graphene
-from . import models, types
 from django.db import IntegrityError
 from django.contrib.auth.models import User
+from graphql_jwt.shortcuts import get_token
+from . import models, types
 from notifications import models as notification_models
 
 
@@ -226,7 +227,8 @@ class CreateAccount(graphene.Mutation):
             profile = models.Profile.objects.create(
                 user=user, gender=gender
             )
-            return types.CreateAccountResponse(ok=ok, error=error)
+            token = get_token(user)
+            return types.CreateAccountResponse(ok=ok, error=error, token=token)
         except IntegrityError as e:
             print(e)
             error = "Can't Create User Profile"
