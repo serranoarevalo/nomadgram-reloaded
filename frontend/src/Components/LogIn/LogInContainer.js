@@ -5,6 +5,9 @@ import LogInPresenter from "./LogInPresenter";
 import { LOGIN_MUTATION } from "./LoginQueries";
 import { LOG_USER_IN } from "../../sharedQueries";
 
+class LogUserInMutation extends Mutation {}
+class LogInMutation extends Mutation {}
+
 export default class extends React.Component {
   state = {
     username: "",
@@ -13,9 +16,9 @@ export default class extends React.Component {
   render() {
     const { username, password } = this.state;
     return (
-      <Mutation mutation={LOG_USER_IN}>
+      <LogUserInMutation mutation={LOG_USER_IN}>
         {logUserIn => (
-          <Mutation
+          <LogInMutation
             mutation={LOGIN_MUTATION}
             variables={{ username, password }}
             onError={() => toast.error("Wrong Username or Password")}
@@ -31,9 +34,9 @@ export default class extends React.Component {
                 onChangeHandler={this.onChangeHandler}
               />
             )}
-          </Mutation>
+          </LogInMutation>
         )}
-      </Mutation>
+      </LogUserInMutation>
     );
   }
   onChangeHandler = event => {
