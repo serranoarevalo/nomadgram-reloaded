@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import Helmet from "react-helmet";
 import Input from "../Input";
 import Button from "../Button";
 
@@ -15,6 +16,9 @@ const SInput = styled(Input)`
 
 const LogInPresenter = ({ username, password, onChangeHandler }) => (
   <Container>
+    <Helmet>
+      <title>Log in • Instaclone</title>
+    </Helmet>
     <form>
       <SInput
         placeholder="Username"

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import Helmet from "react-helmet";
 import Input from "../Input";
 import Button from "../Button";
 
@@ -22,6 +23,9 @@ const SignUpPresenter = ({
   onChangeHandler
 }) => (
   <Container>
+    <Helmet>
+      <title>Sign up • Instaclone</title>
+    </Helmet>
     <form>
       <SInput
         placeholder="Email"
