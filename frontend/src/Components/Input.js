@@ -25,9 +25,11 @@ const Input = ({
   type = "text",
   name,
   onChange,
-  className
+  className,
+  required = true
 }) => (
   <Container
+    required={required}
     value={value}
     placeholder={placeholder}
     type={type}
@@ -41,6 +43,7 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   type: PropTypes.string,
+  required: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };
