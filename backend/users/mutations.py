@@ -208,6 +208,12 @@ class CreateAccount(graphene.Mutation):
         email = kwargs.get('email')
         password = kwargs.get('password')
         try:
+            existing_user = User.objects.get(username=username)
+            raise Exception("Username is already taken")
+        except User.DoesNotExist:
+            pass
+
+        try:
             user = User.objects.create_user(username, email, password)
             user.first_name = first_name
             user.last_name = last_name
@@ -218,7 +224,7 @@ class CreateAccount(graphene.Mutation):
 
         try:
             profile = models.Profile.objects.create(
-                user=user, gender=gender
+                user=user
             )
             token = get_token(user)
             return types.CreateAccountResponse(token=token)
