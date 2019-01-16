@@ -20,7 +20,7 @@ const LogInPresenter = ({ username, password, onChangeHandler, logIn }) => (
     <Helmet>
       <title>Log in • Instaclone</title>
     </Helmet>
-    <Form onSubmit={logIn}>
+    <Form onSubmit={username !== "" && password !== "" ? logIn : null}>
       <SInput
         placeholder="Username"
         value={username}
@@ -34,11 +34,7 @@ const LogInPresenter = ({ username, password, onChangeHandler, logIn }) => (
         type="password"
         onChange={onChangeHandler}
       />
-      <Button
-        text={"Log in"}
-        active={username !== "" && password !== ""}
-        onClick={logIn}
-      />
+      <Button text={"Log in"} active={username !== "" && password !== ""} />
     </Form>
   </Container>
 );
