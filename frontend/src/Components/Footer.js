@@ -17,6 +17,7 @@ const footerLinks = [
 ];
 
 const Container = styled.footer`
+  margin-top: 100px;
   margin-bottom: 50px;
   font-weight: 600;
   font-size: 12px;
@@ -47,8 +48,8 @@ const Footer = () => (
   <Container>
     <SWrapper>
       <List>
-        {footerLinks.map(link => (
-          <ListItem>{link}</ListItem>
+        {footerLinks.map((link, key) => (
+          <ListItem key={key}>{link}</ListItem>
         ))}
       </List>
       <Copyright>&copy; {new Date().getFullYear()} Instagram</Copyright>
