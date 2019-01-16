@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Input from "../Input";
 import Button from "../Button";
+import Form from "../Form";
 
 const Container = styled.div``;
 
@@ -14,12 +15,12 @@ const SInput = styled(Input)`
   }
 `;
 
-const LogInPresenter = ({ username, password, onChangeHandler }) => (
+const LogInPresenter = ({ username, password, onChangeHandler, logIn }) => (
   <Container>
     <Helmet>
       <title>Log in • Instaclone</title>
     </Helmet>
-    <form>
+    <Form onSubmit={logIn}>
       <SInput
         placeholder="Username"
         value={username}
@@ -33,15 +34,20 @@ const LogInPresenter = ({ username, password, onChangeHandler }) => (
         type="password"
         onChange={onChangeHandler}
       />
-      <Button text={"Log in"} active={username !== "" && password !== ""} />
-    </form>
+      <Button
+        text={"Log in"}
+        active={username !== "" && password !== ""}
+        onClick={logIn}
+      />
+    </Form>
   </Container>
 );
 
 LogInPresenter.propTypes = {
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
-  onChangeHandler: PropTypes.func.isRequired
+  onChangeHandler: PropTypes.func.isRequired,
+  logIn: PropTypes.func.isRequired
 };
 
 export default LogInPresenter;
