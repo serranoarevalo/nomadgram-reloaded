@@ -18,7 +18,7 @@ const SInput = styled(Input)`
 const LogInPresenter = ({ username, password, onChangeHandler, logIn }) => (
   <Container>
     <Helmet>
-      <title>Log in • Instaclone</title>
+      <title>Log in • Nomadgram</title>
     </Helmet>
     <Form onSubmit={username !== "" && password !== "" ? logIn : null}>
       <SInput

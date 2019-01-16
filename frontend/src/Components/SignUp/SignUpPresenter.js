@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Input from "../Input";
 import Button from "../Button";
+import Form from "../Form";
 
 const Container = styled.div``;
 
@@ -20,13 +21,15 @@ const SignUpPresenter = ({
   lastName,
   username,
   password,
-  onChangeHandler
+  onChangeHandler,
+  canSubmit,
+  signUp
 }) => (
   <Container>
     <Helmet>
-      <title>Sign up • Instaclone</title>
+      <title>Sign up • Nomadgram</title>
     </Helmet>
-    <form>
+    <Form onSubmit={canSubmit ? signUp : null}>
       <SInput
         placeholder="Email"
         value={email}
@@ -59,17 +62,8 @@ const SignUpPresenter = ({
         type="password"
         onChange={onChangeHandler}
       />
-      <Button
-        text={"Sign up"}
-        active={
-          username !== "" &&
-          password !== "" &&
-          email !== "" &&
-          firstName !== "" &&
-          lastName !== ""
-        }
-      />
-    </form>
+      <Button text={"Sign up"} active={canSubmit} />
+    </Form>
   </Container>
 );
 
@@ -79,7 +73,9 @@ SignUpPresenter.propTypes = {
   lastName: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
-  onChangeHandler: PropTypes.func.isRequired
+  onChangeHandler: PropTypes.func.isRequired,
+  signUp: PropTypes.func.isRequired,
+  canSubmit: PropTypes.bool.isRequired
 };
 
 export default SignUpPresenter;
