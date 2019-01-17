@@ -5,3 +5,13 @@ export const LOG_USER_IN = gql`
     logUserIn(token: $token) @client
   }
 `;
+
+export const ME = gql`
+  {
+    me {
+      user {
+        username
+      }
+    }
+  }
+`;
