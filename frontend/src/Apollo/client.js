@@ -6,7 +6,16 @@ const client = new ApolloClient({
   uri: "http://localhost:8000/graphql",
   clientState: { defaults, resolvers },
   onError: ({ graphQLErrors }) => {
-    graphQLErrors.forEach(error => toast.error(error.message));
+    if (graphQLErrors && graphQLErrors.map) {
+      graphQLErrors.forEach(error => toast.error(error.message));
+    }
+  },
+  request: async operation => {
+    operation.setContext({
+      headers: {
+        Authorization: `JWT ${localStorage.getItem("jwt") || ""}`
+      }
+    });
   }
 });
 

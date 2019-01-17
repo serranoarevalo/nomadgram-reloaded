@@ -21,6 +21,7 @@ const Container = styled.footer`
   margin-bottom: 50px;
   font-weight: 600;
   font-size: 12px;
+  cursor: pointer;
   text-transform: uppercase;
 `;
 
