@@ -24,7 +24,7 @@ class CommentType(DjangoObjectType):
         model = models.Comment
 
 
-class FeedResponse(graphene.ObjectType, config_types.ResponseFields):
+class FeedResponse(graphene.ObjectType):
     images = graphene.List(ImageType)
 
 
@@ -48,7 +48,7 @@ class ImageLikeResponse(graphene.ObjectType, config_types.ResponseFields):
     likes = graphene.List(LikeType)
 
 
-class ImageDetailResponse(graphene.ObjectType, config_types.ResponseFields):
+class ImageDetailResponse(graphene.ObjectType):
     image = graphene.Field(ImageType)
 
 
@@ -64,9 +64,13 @@ class UploadImageResponse(graphene.ObjectType, config_types.ResponseFields):
     image = graphene.Field(ImageType)
 
 
-class SearchImagesResponse(graphene.ObjectType, config_types.ResponseFields):
+class SearchImagesResponse(graphene.ObjectType):
     images = graphene.List(ImageType)
 
 
-class LatestImagesResponse(graphene.ObjectType, config_types.ResponseFields):
+class LatestImagesResponse(graphene.ObjectType):
     images = graphene.List(ImageType)
+
+
+class PhotoLikeResponse(graphene.ObjectType):
+    likes = graphene.List(LikeType)
