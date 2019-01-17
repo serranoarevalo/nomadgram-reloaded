@@ -15,8 +15,6 @@ def resolve_feed(self, info, **kwargs):
 
     for following_user in following_users:
 
-        print(page)
-
         user_images = following_user.user.images.all()[2 * page:2]
 
         for image in user_images:
