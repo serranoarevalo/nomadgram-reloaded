@@ -57,5 +57,6 @@ def resolve_latest_users(self, info):
 
     user = info.context.user
 
-    users = models.User.objects.filter().order_by('-date_joined')[:10]
+    users = models.User.objects.filter().exclude(pk=user.pk).order_by(
+        '-date_joined')[:10]
     return types.LatestUsersResponse(users=users)

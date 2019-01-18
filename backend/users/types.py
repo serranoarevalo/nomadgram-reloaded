@@ -9,6 +9,14 @@ class ProfileType(DjangoObjectType):
 
     following_count = graphene.Int(source='followers_count')
     followers_count = graphene.Int(source='following_count')
+    is_following = graphene.Boolean()
+
+    def resolve_is_following(self, info):
+        user = info.context.user
+        if self in user.profile.following.all():
+            return True
+        else:
+            return False
 
     class Meta:
         model = models.Profile
