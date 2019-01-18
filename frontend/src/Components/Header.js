@@ -90,7 +90,7 @@ export default () => (
           </Link>
         </Icon>
         <Icon>
-          <Link to="/notifications">
+          <Link to="#">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
