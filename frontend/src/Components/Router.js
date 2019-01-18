@@ -12,7 +12,7 @@ import Explore from "../Routes/Explore";
 import Header from "./Header";
 
 const Wrapper = styled.div`
-  padding-top: 85px;
+  padding-top: 135px;
 `;
 
 const LoggedInPages = () => (
