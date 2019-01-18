@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FollowBtnPresenter from "./FollowBtnPresenter";
+import { Mutation } from "react-apollo";
+import { FOLLOW_USER } from "./FollowButtonQueries";
+
+class FollowMutation extends Mutation {}
 
 export default class extends React.Component {
   static propTypes = {
@@ -15,11 +19,20 @@ export default class extends React.Component {
   }
   render() {
     const { isFollowing } = this.state;
+    const { userId } = this.props;
     return (
-      <FollowBtnPresenter
-        isFollowing={isFollowing}
-        toggleBtn={this.toggleBtn}
-      />
+      <FollowMutation
+        mutation={FOLLOW_USER}
+        variables={{ userId: parseInt(userId, 10) }}
+        onCompleted={this.toggleBtn}
+      >
+        {followUser => (
+          <FollowBtnPresenter
+            isFollowing={isFollowing}
+            toggleBtn={followUser}
+          />
+        )}
+      </FollowMutation>
     );
   }
   toggleBtn = () => {
