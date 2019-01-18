@@ -78,9 +78,25 @@ export default class PhotoContainer extends React.Component {
   };
 
   onLikeClick = () => {
+    const { likeCount, isLiked } = this.props;
     this.setState(state => {
+      let likeNumber;
+      if (!isLiked) {
+        if (likeCount === state.likeCount) {
+          likeNumber = likeCount + 1;
+        } else {
+          likeNumber = likeCount;
+        }
+      } else {
+        if (likeCount === state.likeCount) {
+          likeNumber = likeCount - 1;
+        } else {
+          likeNumber = likeCount;
+        }
+      }
       return {
-        isLiked: !state.isLiked
+        isLiked: !state.isLiked,
+        likeCount: likeNumber
       };
     });
   };
