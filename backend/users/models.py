@@ -17,7 +17,8 @@ class Profile(config_models.TimeStampedModel):
     bio = models.TextField(default='', blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDERS, default='M')
-    avatar = models.URLField(blank=True, null=True)
+    avatar = models.URLField(
+        blank=True, null=True, default="https://scontent-bog1-1.cdninstagram.com/vp/08b4774c7bdd7a1615e2b66476150437/5CD15391/t51.2885-19/s150x150/33940709_2091657174447047_1561961433825017856_n.jpg?_nc_ht=scontent-bog1-1.cdninstagram.com")
     following = models.ManyToManyField(
         'self', blank=True, symmetrical=False, related_name='following_users')
     followers = models.ManyToManyField(

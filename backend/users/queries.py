@@ -50,7 +50,7 @@ def resolve_check_username(self, info, **kwargs):
         existing_username = User.objects.get(username=username)
         raise Exception("Username is taken")
     except User.DoesNotExist:
-        return types.CheckUsernameResponse(error=error)
+        return types.CheckUsernameResponse(ok=True)
 
 
 def resolve_latest_users(self, info):

@@ -41,8 +41,8 @@ class SearchUsersResponse(graphene.ObjectType):
     users = graphene.List(UserType)
 
 
-class CheckUsernameResponse(graphene.ObjectType):
-    pass
+class CheckUsernameResponse(graphene.ObjectType,):
+    ok = graphene.Boolean()
 
 
 class CreateAccountResponse(graphene.ObjectType):
