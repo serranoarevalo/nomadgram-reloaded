@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Wrapper from "./Wrapper";
-import { ME } from "../sharedQueries";
-import { Query } from "react-apollo";
 import { Profile, Compass, HeartEmpty } from "../Icons";
+import Me from "./Me";
 
 const Header = styled.header`
   background-color: white;
@@ -89,13 +88,13 @@ export default () => (
           </Link>
         </Icon>
         <Icon>
-          <Query query={ME}>
-            {({ data, loading }) => (
-              <Link to={loading ? "" : data.me.user.username}>
+          <Me>
+            {me => (
+              <Link to={me ? me.user.username : ""}>
                 <Profile />
               </Link>
             )}
-          </Query>
+          </Me>
         </Icon>
       </Column>
     </SWrapper>

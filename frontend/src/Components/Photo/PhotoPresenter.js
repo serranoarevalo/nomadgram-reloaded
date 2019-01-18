@@ -5,7 +5,6 @@ import Textarea from "react-expanding-textarea";
 import Avatar from "../Avatar";
 import Bold from "../Bold";
 import Comment from "../Comment";
-import { HeartFilled, HeartEmpty, Bubble } from "../../Icons";
 import PhotoButtons from "../PhotoButtons";
 
 const Container = styled.div`
@@ -79,7 +78,9 @@ const PhotoPresenter = ({
   updateNewComment,
   newComment,
   isLiked,
-  onLikeClick
+  onLikeClick,
+  selfComments,
+  onKeyUp
 }) => {
   if (inline) {
     return (
@@ -106,6 +107,15 @@ const PhotoPresenter = ({
                   comment={comment.message}
                 />
               ))}
+            {selfComments &&
+              selfComments.map(comment => (
+                <Comment
+                  id={comment.id}
+                  key={comment.id}
+                  username={comment.username}
+                  comment={comment.message}
+                />
+              ))}
           </Comments>
           <TimeStamp>{createdAt}</TimeStamp>
           <AddComment>
@@ -113,6 +123,7 @@ const PhotoPresenter = ({
               placeholder="Add a comment..."
               onChange={updateNewComment}
               value={newComment}
+              onKeyUp={onKeyUp}
             />
           </AddComment>
         </Meta>
@@ -126,7 +137,9 @@ PhotoPresenter.propTypes = {
   newComment: PropTypes.string.isRequired,
   updateNewComment: PropTypes.func.isRequired,
   isLiked: PropTypes.bool.isRequired,
-  onLikeClick: PropTypes.func.isRequired
+  onLikeClick: PropTypes.func.isRequired,
+  selfComments: PropTypes.array,
+  onKeyUp: PropTypes.func.isRequired
 };
 
 export default PhotoPresenter;
