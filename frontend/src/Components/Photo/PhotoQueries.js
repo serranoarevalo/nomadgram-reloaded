@@ -7,3 +7,16 @@ export const TOGGLE_LIKE_IMAGE = gql`
     }
   }
 `;
+
+export const ADD_COMMENT = gql`
+  mutation addComment($imageId: Int!, $message: String!) {
+    addComment(imageId: $imageId, message: $message) {
+      comment {
+        id
+        creator {
+          username
+        }
+      }
+    }
+  }
+`;

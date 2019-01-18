@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { Mutation } from "react-apollo";
 import PhotoPresenter from "./PhotoPresenter";
 import Me from "../Me";
-import { TOGGLE_LIKE_IMAGE } from "./PhotoQueries";
+import { TOGGLE_LIKE_IMAGE, ADD_COMMENT } from "./PhotoQueries";
 
 class ToggleLikeMutation extends Mutation {}
+class AddCommentMutation extends Mutation {}
 
 export default class PhotoContainer extends React.Component {
   static propTypes = {
@@ -56,41 +57,53 @@ export default class PhotoContainer extends React.Component {
     } = this.props;
     const { newComment, isLiked, likeCount, selfComments } = this.state;
     return (
-      <ToggleLikeMutation
-        mutation={TOGGLE_LIKE_IMAGE}
-        variables={{ imageId: id }}
+      <AddCommentMutation
+        mutation={ADD_COMMENT}
+        variables={{ imageId: id, message: newComment }}
+        onCompleted={this.addSelfComment}
       >
-        {toggleLike => {
-          this.toggleLike = toggleLike;
+        {addComment => {
+          this.addComment = addComment;
           return (
-            <Me>
-              {me => {
-                this.currentUser = me.user.username;
+            <ToggleLikeMutation
+              mutation={TOGGLE_LIKE_IMAGE}
+              variables={{ imageId: id }}
+              onCompleted={this.addSelfComment}
+            >
+              {toggleLike => {
+                this.toggleLike = toggleLike;
                 return (
-                  <PhotoPresenter
-                    inline={inline}
-                    creatorAvatar={creatorAvatar}
-                    creatorUsername={creatorUsername}
-                    location={location}
-                    photoUrl={photoUrl}
-                    likeCount={likeCount}
-                    commentCount={commentCount}
-                    caption={caption}
-                    createdAt={createdAt}
-                    comments={comments}
-                    updateNewComment={this.updateNewComment}
-                    newComment={newComment}
-                    isLiked={isLiked}
-                    onLikeClick={this.onLikeClick}
-                    selfComments={selfComments}
-                    onKeyUp={this.onKeyUp}
-                  />
+                  <Me>
+                    {me => {
+                      this.currentUser = me.user.username;
+                      return (
+                        <PhotoPresenter
+                          inline={inline}
+                          creatorAvatar={creatorAvatar}
+                          creatorUsername={creatorUsername}
+                          location={location}
+                          photoUrl={photoUrl}
+                          likeCount={likeCount}
+                          commentCount={commentCount}
+                          caption={caption}
+                          createdAt={createdAt}
+                          comments={comments}
+                          updateNewComment={this.updateNewComment}
+                          newComment={newComment}
+                          isLiked={isLiked}
+                          onLikeClick={this.onLikeClick}
+                          selfComments={selfComments}
+                          onKeyUp={this.onKeyUp}
+                        />
+                      );
+                    }}
+                  </Me>
                 );
               }}
-            </Me>
+            </ToggleLikeMutation>
           );
         }}
-      </ToggleLikeMutation>
+      </AddCommentMutation>
     );
   }
 
@@ -106,7 +119,7 @@ export default class PhotoContainer extends React.Component {
   onKeyUp = event => {
     const { keyCode } = event;
     if (keyCode === 13) {
-      this.submitComment();
+      this.addComment();
     } else {
       return;
     }
@@ -137,20 +150,25 @@ export default class PhotoContainer extends React.Component {
     });
   };
 
-  submitComment = () => {
+  addSelfComment = data => {
     const { newComment } = this.state;
-    this.setState(state => {
-      return {
-        selfComments: [
-          ...state.selfComments,
-          {
-            id: Math.floor(Math.random() * 1000),
-            username: this.currentUser,
-            message: newComment
-          }
-        ],
-        newComment: ""
-      };
-    });
+    const {
+      addComment: { comment }
+    } = data;
+    if (comment) {
+      this.setState(state => {
+        return {
+          selfComments: [
+            ...state.selfComments,
+            {
+              id: comment.id,
+              username: comment.creator.username,
+              message: newComment
+            }
+          ],
+          newComment: ""
+        };
+      });
+    }
   };
 }
