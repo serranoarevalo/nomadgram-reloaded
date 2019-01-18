@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PhotoPresenter from "./PhotoPresenter";
+import Me from "../Me";
 
 export default class PhotoContainer extends React.Component {
   static propTypes = {
@@ -31,7 +32,8 @@ export default class PhotoContainer extends React.Component {
     this.state = {
       newComment: "",
       isLiked: props.isLiked,
-      likeCount: props.likeCount
+      likeCount: props.likeCount,
+      selfComments: []
     };
   }
 
@@ -49,22 +51,29 @@ export default class PhotoContainer extends React.Component {
     } = this.props;
     const { newComment, isLiked, likeCount } = this.state;
     return (
-      <PhotoPresenter
-        inline={inline}
-        creatorAvatar={creatorAvatar}
-        creatorUsername={creatorUsername}
-        location={location}
-        photoUrl={photoUrl}
-        likeCount={likeCount}
-        commentCount={commentCount}
-        caption={caption}
-        createdAt={createdAt}
-        comments={comments}
-        updateNewComment={this.updateNewComment}
-        newComment={newComment}
-        isLiked={isLiked}
-        onLikeClick={this.onLikeClick}
-      />
+      <Me>
+        {me => {
+          this.currentUser = me.user.username;
+          return (
+            <PhotoPresenter
+              inline={inline}
+              creatorAvatar={creatorAvatar}
+              creatorUsername={creatorUsername}
+              location={location}
+              photoUrl={photoUrl}
+              likeCount={likeCount}
+              commentCount={commentCount}
+              caption={caption}
+              createdAt={createdAt}
+              comments={comments}
+              updateNewComment={this.updateNewComment}
+              newComment={newComment}
+              isLiked={isLiked}
+              onLikeClick={this.onLikeClick}
+            />
+          );
+        }}
+      </Me>
     );
   }
 
@@ -99,5 +108,9 @@ export default class PhotoContainer extends React.Component {
         likeCount: likeNumber
       };
     });
+  };
+
+  onCommentSubmit = () => {
+    const { newComment } = this.state;
   };
 }
