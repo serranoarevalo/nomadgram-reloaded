@@ -1,5 +1,6 @@
 import graphene
 from django.db import IntegrityError
+from graphql_jwt.decorators import login_required
 from notifications import models as notification_models
 from . import models, types
 
@@ -13,78 +14,36 @@ class LikeImage(graphene.Mutation):
 
     Output = types.LikeImageResponse
 
+    @login_required
     def mutate(self, info, **kwargs):
         imageId = kwargs.get('imageId')
         user = info.context.user
-        ok = True
-        error = None
-        if user.is_authenticated:
-            try:
-                image = models.Image.objects.get(id=imageId)
-            except models.Image.DoesNotExist:
-                error = 'Image Not Found'
-                return types.LikeImageResponse(ok=not ok, error=error)
 
-            try:
-                like = models.Like.objects.create(
-                    creator=user, image=image)
-                return types.LikeImageResponse(ok=ok, error=error)
-            except IntegrityError as e:
-                print(e)
-                error = "Can't Like Image"
-                return types.LikeImageResponse(ok=not ok, error=error)
+        try:
+            image = models.Image.objects.get(id=imageId)
+        except models.Image.DoesNotExist:
+            raise Exception('Image Not Found')
 
-            try:
-                notification_models.Notification.objects.create(
-                    actor=user, target=image.creator, verb="like", payload=image)
-            except IntegrityError as e:
-                print(e)
-                pass
+        try:
+            like = models.Like.objects.get(
+                creator=user, image=image)
+            like.delete()
+            return types.LikeImageResponse(ok=True)
+        except models.Like.DoesNotExist:
+            pass
 
-        else:
-            error = 'You need to log in'
-            return types.LikeImageResponse(ok=not ok, error=error)
+        try:
+            like = models.Like.objects.create(
+                creator=user, image=image)
+            return types.LikeImageResponse(ok=True)
+        except IntegrityError as e:
+            raise Exception("Can't Like Image")
 
-
-class UnlikeImage(graphene.Mutation):
-
-    """ Unlike an Image """
-
-    class Arguments:
-        imageId = graphene.Int(required=True)
-
-    Output = types.UnlikeImageResponse
-
-    def mutate(self, info, **kwargs):
-        imageId = kwargs.get('imageId')
-        user = info.context.user
-        ok = True
-        error = None
-        if user.is_authenticated:
-            try:
-                image = models.Image.objects.get(id=imageId)
-            except models.Image.DoesNotExist:
-                error = 'Image Not Found'
-                return types.LikeImageResponse(ok=not ok, error=error)
-
-            try:
-                like = models.Like.objects.get(
-                    creator=user, image=image)
-                like.delete()
-                return types.LikeImageResponse(ok=ok, error=error)
-            except models.Like.DoesNotExist:
-                pass
-
-            try:
-                notification = notification_models.Notification.objects.get(
-                    actor=user, target=image.creator, verb="like", payload=image)
-                notification.delete()
-            except notification_models.Notification.DoesNotExist:
-                pass
-
-        else:
-            error = 'You need to log in'
-            return types.LikeImageResponse(ok=not ok, error=error)
+        try:
+            notification_models.Notification.objects.create(
+                actor=user, target=image.creator, verb="like", payload=image)
+        except IntegrityError as e:
+            pass
 
 
 class AddComment(graphene.Mutation):

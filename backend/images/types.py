@@ -38,8 +38,8 @@ class FeedResponse(graphene.ObjectType):
     images = graphene.List(ImageType)
 
 
-class LikeImageResponse(graphene.ObjectType, config_types.ResponseFields):
-    pass
+class LikeImageResponse(graphene.ObjectType):
+    ok = graphene.Boolean()
 
 
 class UnlikeImageResponse(graphene.ObjectType, config_types.ResponseFields):
