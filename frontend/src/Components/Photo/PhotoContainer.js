@@ -5,6 +5,17 @@ import PhotoPresenter from "./PhotoPresenter";
 export default class PhotoContainer extends React.Component {
   static propTypes = {
     inline: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
+    comments: PropTypes.arrayOf(
+      PropTypes.objectOf({
+        message: PropTypes.string.isRequired,
+        creator: PropTypes.objectOf(
+          PropTypes.objectOf({
+            username: PropTypes.string
+          })
+        )
+      })
+    ).isRequired,
     creatorAvatar: PropTypes.string.isRequired,
     creatorUsername: PropTypes.string.isRequired,
     location: PropTypes.string,
@@ -16,6 +27,7 @@ export default class PhotoContainer extends React.Component {
   };
   render() {
     const { inline } = this.props;
+    console.log(this.props);
     return <PhotoPresenter inline={inline} />;
   }
 }
