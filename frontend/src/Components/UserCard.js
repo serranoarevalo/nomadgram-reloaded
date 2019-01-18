@@ -13,7 +13,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 30px 15px;
-  padding-bottom: 10px;
 `;
 
 const SAvatar = styled(Avatar)`
