@@ -4,19 +4,19 @@ import PropTypes from "prop-types";
 
 const SButton = styled.button`
   border: 0;
-  padding: 7px 0px;
+  padding: ${props => (props.size === "md" ? "7px 0px" : "5px 0px")};
   color: white;
   background-color: ${props => props.theme.blueColor};
   opacity: ${props => (props.active ? 1 : 0.8)};
   font-weight: 600;
   width: 100%;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: ${props => (props.size === "md" ? "14px" : "12px")};
   cursor: pointer;
 `;
 
-const Button = ({ text, active, onClick }) => (
-  <SButton active={active} onClick={onClick}>
+const Button = ({ text, active, onClick, className, size = "xs" }) => (
+  <SButton active={active} onClick={onClick} className={className} size={size}>
     {text}
   </SButton>
 );
@@ -24,7 +24,8 @@ const Button = ({ text, active, onClick }) => (
 Button.propTypes = {
   text: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  size: PropTypes.oneOf(["xs", "md"])
 };
 
 export default Button;

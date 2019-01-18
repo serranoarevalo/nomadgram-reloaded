@@ -36,6 +36,8 @@ const FeedPresenter = ({ data, loading, error }) => {
           ))}
       </SWrapper>
     );
+  } else {
+    return null;
   }
 };
 

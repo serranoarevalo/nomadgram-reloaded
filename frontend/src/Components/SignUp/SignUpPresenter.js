@@ -62,7 +62,7 @@ const SignUpPresenter = ({
         type="password"
         onChange={onChangeHandler}
       />
-      <Button text={"Sign up"} active={canSubmit} />
+      <Button size="md" text={"Sign up"} active={canSubmit} />
     </Form>
   </Container>
 );

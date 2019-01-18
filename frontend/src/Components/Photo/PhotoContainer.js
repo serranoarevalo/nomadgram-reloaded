@@ -67,7 +67,6 @@ export default class PhotoContainer extends React.Component {
             <ToggleLikeMutation
               mutation={TOGGLE_LIKE_IMAGE}
               variables={{ imageId: id }}
-              onCompleted={this.addSelfComment}
             >
               {toggleLike => {
                 this.toggleLike = toggleLike;

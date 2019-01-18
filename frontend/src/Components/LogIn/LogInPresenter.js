@@ -34,7 +34,11 @@ const LogInPresenter = ({ username, password, onChangeHandler, logIn }) => (
         type="password"
         onChange={onChangeHandler}
       />
-      <Button text={"Log in"} active={username !== "" && password !== ""} />
+      <Button
+        size="md"
+        text={"Log in"}
+        active={username !== "" && password !== ""}
+      />
     </Form>
   </Container>
 );

@@ -31,7 +31,9 @@ const Container = styled.div`
   border-radius: 50%;
 `;
 
-const Avatar = ({ url, size = "md" }) => <Container bg={url} size={size} />;
+const Avatar = ({ className, url, size = "md" }) => (
+  <Container className={className} bg={url} size={size} />
+);
 
 Avatar.propTypes = {
   url: PropTypes.string.isRequired,
