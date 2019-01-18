@@ -7,13 +7,12 @@ export default class PhotoContainer extends React.Component {
     inline: PropTypes.bool.isRequired,
     id: PropTypes.string.isRequired,
     comments: PropTypes.arrayOf(
-      PropTypes.objectOf({
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
         message: PropTypes.string.isRequired,
-        creator: PropTypes.objectOf(
-          PropTypes.objectOf({
-            username: PropTypes.string
-          })
-        )
+        creator: PropTypes.shape({
+          username: PropTypes.string.isRequired
+        }).isRequired
       })
     ).isRequired,
     creatorAvatar: PropTypes.string.isRequired,
@@ -25,6 +24,11 @@ export default class PhotoContainer extends React.Component {
     caption: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired
   };
+
+  state = {
+    newComment: ""
+  };
+
   render() {
     const {
       inline,
@@ -38,6 +42,7 @@ export default class PhotoContainer extends React.Component {
       createdAt,
       comments
     } = this.props;
+    const { newComment } = this.state;
     return (
       <PhotoPresenter
         inline={inline}
@@ -50,7 +55,18 @@ export default class PhotoContainer extends React.Component {
         caption={caption}
         createdAt={createdAt}
         comments={comments}
+        updateNewComment={this.updateNewComment}
+        newComment={newComment}
       />
     );
   }
+
+  updateNewComment = event => {
+    const {
+      target: { value }
+    } = event;
+    this.setState({
+      newComment: value
+    });
+  };
 }

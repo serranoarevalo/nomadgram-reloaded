@@ -12,6 +12,7 @@ export const GET_FEED = gql`
         commentCount
         createdAt
         comments {
+          id
           message
           creator {
             username

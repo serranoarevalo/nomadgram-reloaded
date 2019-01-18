@@ -15,6 +15,12 @@ const GlobalStyles = createGlobalStyle`
     svg{
         fill:#262626;
     }
+    input, textarea, button{
+        &:active,
+        &:focus{
+            outline:none;
+        }
+    }
 `;
 
 export default GlobalStyles;

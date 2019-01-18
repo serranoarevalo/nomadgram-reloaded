@@ -1,8 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import Loader from "../../Components/Loader";
 import Photo from "../../Components/Photo";
 import Wrapper from "../../Components/Wrapper";
+
+const SWrapper = styled(Wrapper)`
+  max-width: 600px;
+`;
 
 const FeedPresenter = ({ data, loading, error }) => {
   if (loading) {
@@ -10,7 +15,7 @@ const FeedPresenter = ({ data, loading, error }) => {
   } else if (data) {
     const { feed: { images = [] } = {} } = data;
     return (
-      <Wrapper>
+      <SWrapper>
         {images &&
           images.map(image => (
             <Photo
@@ -28,7 +33,7 @@ const FeedPresenter = ({ data, loading, error }) => {
               createdAt={image.createdAt}
             />
           ))}
-      </Wrapper>
+      </SWrapper>
     );
   }
 };

@@ -6,12 +6,12 @@ const Container = styled.span`
   font-weight: 600;
 `;
 
-const Username = ({ username, className }) => (
-  <Container className>{username}</Container>
+const Username = ({ text, className }) => (
+  <Container className={className}>{text}</Container>
 );
 
 Username.propTypes = {
-  username: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired
 };
 
 export default Username;
