@@ -10,6 +10,7 @@ export const GET_FEED = gql`
         location
         likeCount
         commentCount
+        isLiked
         createdAt
         comments {
           id

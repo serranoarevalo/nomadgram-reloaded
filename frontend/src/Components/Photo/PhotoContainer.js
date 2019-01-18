@@ -22,12 +22,18 @@ export default class PhotoContainer extends React.Component {
     likeCount: PropTypes.number.isRequired,
     commentCount: PropTypes.number.isRequired,
     caption: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired
+    createdAt: PropTypes.string.isRequired,
+    isLiked: PropTypes.bool.isRequired
   };
 
-  state = {
-    newComment: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      newComment: "",
+      isLiked: props.isLiked,
+      likeCount: props.likeCount
+    };
+  }
 
   render() {
     const {
@@ -36,13 +42,12 @@ export default class PhotoContainer extends React.Component {
       creatorUsername,
       location,
       photoUrl,
-      likeCount,
       commentCount,
       caption,
       createdAt,
       comments
     } = this.props;
-    const { newComment } = this.state;
+    const { newComment, isLiked, likeCount } = this.state;
     return (
       <PhotoPresenter
         inline={inline}
@@ -57,6 +62,8 @@ export default class PhotoContainer extends React.Component {
         comments={comments}
         updateNewComment={this.updateNewComment}
         newComment={newComment}
+        isLiked={isLiked}
+        onLikeClick={this.onLikeClick}
       />
     );
   }
@@ -67,6 +74,14 @@ export default class PhotoContainer extends React.Component {
     } = event;
     this.setState({
       newComment: value
+    });
+  };
+
+  onLikeClick = () => {
+    this.setState(state => {
+      return {
+        isLiked: !state.isLiked
+      };
     });
   };
 }

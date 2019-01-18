@@ -6,7 +6,7 @@ import Photo from "../../Components/Photo";
 import Wrapper from "../../Components/Wrapper";
 
 const SWrapper = styled(Wrapper)`
-  max-width: 600px;
+  max-width: 650px;
 `;
 
 const FeedPresenter = ({ data, loading, error }) => {
@@ -31,6 +31,7 @@ const FeedPresenter = ({ data, loading, error }) => {
               caption={image.caption}
               comments={image.comments}
               createdAt={image.createdAt}
+              isLiked={image.isLiked}
             />
           ))}
       </SWrapper>
