@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from config import models as config_models
 
 
@@ -20,6 +21,10 @@ class Image(config_models.TimeStampedModel):
     @property
     def comment_count(self):
         return self.comments.all().count()
+
+    @property
+    def time_ago(self):
+        return naturaltime(self.created_at)
 
     def __str__(self):
         return self.caption

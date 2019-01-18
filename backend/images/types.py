@@ -7,6 +7,16 @@ from . import models
 class ImageType(DjangoObjectType):
     like_count = graphene.Int(source='like_count')
     comment_count = graphene.Int(source='comment_count')
+    created_at = graphene.String(source="time_ago")
+    is_liked = graphene.Boolean()
+
+    def resolve_is_liked(self, info):
+        user = info.context.user
+        try:
+            like = models.Like.objects.get(image=self, creator=user)
+            return True
+        except models.Like.DoesNotExist:
+            return False
 
     class Meta:
         model = models.Image
