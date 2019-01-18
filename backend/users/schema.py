@@ -27,7 +27,6 @@ class Query(object):
 class Mutation(object):
 
     follow_user = mutations.FollowUser.Field(required=True)
-    unfollow_user = mutations.UnfollowUser.Field(required=True)
     edit_profile = mutations.EditProfile.Field(required=True)
     change_password = mutations.ChangePassword.Field(required=True)
     log_in = graphql_jwt.ObtainJSONWebToken.Field(required=True)

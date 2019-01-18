@@ -1,6 +1,7 @@
 import graphene
 from django.db import IntegrityError
 from django.contrib.auth.models import User
+from graphql_jwt.decorators import login_required
 from graphql_jwt.shortcuts import get_token
 from . import models, types
 from notifications import models as notification_models
@@ -15,63 +16,18 @@ class FollowUser(graphene.Mutation):
 
     Output = types.FollowUnfollowResponse
 
+    @login_required
     def mutate(self, info, **kwargs):
 
         userId = kwargs.get('userId')
         user = info.context.user
 
-        ok = True
-        error = None
+        try:
+            target = User.objects.get(id=userId)
+        except User.DoesNotExist:
+            raise Exception('User Not Found')
 
-        if user.is_authenticated:
-
-            try:
-                target = User.objects.get(id=userId)
-            except User.DoesNotExist:
-                error = 'User Not Found'
-                return types.FollowUnfollowResponse(ok=not ok, error=error)
-
-            user.profile.following.add(target.profile)
-            target.profile.followers.add(user.profile)
-
-            try:
-                notification_models.Notification.objects.create(
-                    actor=user, target=target, verb="follow")
-            except IntegrityError as e:
-                print(e)
-                pass
-
-            return types.FollowUnfollowResponse(ok=ok, error=error)
-
-        else:
-            error = 'You need to log in'
-            return types.FollowUnfollowResponse(ok=not ok, error=error)
-
-
-class UnfollowUser(graphene.Mutation):
-
-    """ Follow User """
-
-    class Arguments:
-        userId = graphene.Int(required=True)
-
-    Output = types.FollowUnfollowResponse
-
-    def mutate(self, info, **kwargs):
-
-        userId = kwargs.get('userId')
-        user = info.context.user
-
-        ok = True
-        error = None
-
-        if user.is_authenticated:
-
-            try:
-                target = User.objects.get(id=userId)
-            except User.DoesNotExist:
-                error = 'User Not Found'
-                return types.FollowUnfollowResponse(ok=not ok, error=error)
+        if target.profile in user.profile.following.all():
 
             user.profile.following.remove(target.profile)
             target.profile.followers.remove(user.profile)
@@ -84,11 +40,19 @@ class UnfollowUser(graphene.Mutation):
                 print(e)
                 pass
 
-            return types.FollowUnfollowResponse(ok=ok, error=error)
-
         else:
-            error = 'You need to log in'
-            return types.FollowUnfollowResponse(ok=not ok, error=error)
+
+            user.profile.following.add(target.profile)
+            target.profile.followers.add(user.profile)
+
+            try:
+                notification_models.Notification.objects.create(
+                    actor=user, target=target, verb="follow")
+            except IntegrityError as e:
+                print(e)
+                pass
+
+        return types.FollowUnfollowResponse(ok=True)
 
 
 class EditProfile(graphene.Mutation):
