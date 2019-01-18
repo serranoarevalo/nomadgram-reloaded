@@ -56,42 +56,34 @@ class AddComment(graphene.Mutation):
 
     Output = types.AddCommentResponse
 
+    @login_required
     def mutate(self, info, **kwargs):
         imageId = kwargs.get('imageId')
         message = kwargs.get('message')
 
         user = info.context.user
 
-        ok = True
-        error = None
         comment = None
 
-        if user.is_authenticated:
-            try:
-                image = models.Image.objects.get(id=imageId)
-            except models.Image.DoesNotExist:
-                error = 'Image Not Found'
-                return types.AddCommentResponse(ok=not ok, error=error, comment=comment)
+        try:
+            image = models.Image.objects.get(id=imageId)
+        except models.Image.DoesNotExist:
+            raise Exception('Image Not Found')
 
-            try:
-                comment = models.Comment.objects.create(
-                    message=message, image=image, creator=user)
-                return types.AddCommentResponse(ok=ok, error=error, comment=comment)
-            except IntegrityError as e:
-                print(e)
-                error = "Can't create the comment"
-                return types.AddCommentResponse(ok=not ok, error=error, comment=comment)
+        try:
+            comment = models.Comment.objects.create(
+                message=message, image=image, creator=user)
+            return types.AddCommentResponse(comment=comment)
+        except IntegrityError as e:
+            print(e)
+            raise Exception("Can't create the comment")
 
-            try:
-                notification_models.Notification.objects.create(
-                    actor=user, target=image.creator, verb="comment", payload=image)
-            except IntegrityError as e:
-                print(e)
-                pass
-
-        else:
-            error = 'You need to log in'
-            return types.AddCommentResponse(ok=not ok, error=error, comment=comment)
+        try:
+            notification_models.Notification.objects.create(
+                actor=user, target=image.creator, verb="comment", payload=image)
+        except IntegrityError as e:
+            print(e)
+            pass
 
 
 class DeleteComment(graphene.Mutation):
