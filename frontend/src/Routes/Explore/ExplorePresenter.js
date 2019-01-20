@@ -4,19 +4,13 @@ import PropTypes from "prop-types";
 import Wrapper from "../../Components/Wrapper";
 import Loader from "../../Components/Loader";
 import UserCard from "../../Components/UserCard";
-import SquareImage from "../../Components/SquareImage";
+import PhotoGrid from "../../Components/PhotoGrid";
 
 const UsersWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 200px));
   grid-gap: 25px;
   margin-bottom: 85px;
-`;
-
-const ImagesWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 295px);
-  grid-auto-rows: 295px;
 `;
 
 const ExplorePresenter = ({ data, loading }) => {
@@ -42,19 +36,7 @@ const ExplorePresenter = ({ data, loading }) => {
             ))}
           </UsersWrapper>
         )}
-        {images && (
-          <ImagesWrapper>
-            {images.map(image => (
-              <SquareImage
-                key={image.id}
-                id={image.id}
-                file={image.file}
-                likeCount={image.likeCount}
-                commentCount={image.commentCount}
-              />
-            ))}
-          </ImagesWrapper>
-        )}
+        {images && <PhotoGrid images={images} />}
       </Wrapper>
     );
   } else {

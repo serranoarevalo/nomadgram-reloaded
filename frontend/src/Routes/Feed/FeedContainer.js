@@ -12,7 +12,11 @@ export default class FeedContainer extends React.Component {
   render() {
     const { page } = this.state;
     return (
-      <FeedQuery query={GET_FEED} variables={{ page }}>
+      <FeedQuery
+        query={GET_FEED}
+        variables={{ page }}
+        fetchPolicy="network-only"
+      >
         {({ data, loading, error }) => (
           <FeedPresenter loading={loading} data={data} error={error} />
         )}
