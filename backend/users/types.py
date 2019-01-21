@@ -9,6 +9,7 @@ class ProfileType(DjangoObjectType):
 
     following_count = graphene.Int(source='followers_count')
     followers_count = graphene.Int(source='following_count')
+    post_count = graphene.Int(source='post_count')
     is_following = graphene.Boolean()
 
     def resolve_is_following(self, info):

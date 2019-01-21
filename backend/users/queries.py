@@ -6,10 +6,10 @@ from . import types, models
 
 def resolve_profile(self, info, **kwargs):
 
-    userId = kwargs.get('userId')
+    username = kwargs.get('username')
 
     try:
-        profile = User.objects.get(id=userId)
+        profile = User.objects.get(username=username)
     except User.DoesNotExist:
         raise Exception('User not found')
 

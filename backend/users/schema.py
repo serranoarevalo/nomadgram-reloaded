@@ -7,7 +7,7 @@ class Query(object):
 
     user_profile = graphene.Field(
         types.UserProfileResponse, resolver=queries.resolve_profile, required=True, args={
-            'userId': graphene.Int(required=True)
+            'username': graphene.String(required=True)
         })
 
     me = graphene.Field(types.UserProfileResponse,
