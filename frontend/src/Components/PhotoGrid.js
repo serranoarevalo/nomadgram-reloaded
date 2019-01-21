@@ -6,6 +6,7 @@ import SquareImage from "./SquareImage";
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 295px);
+  grid-template-rows: 295px;
   grid-auto-rows: 295px;
 `;
 
@@ -24,7 +25,7 @@ const PhotoGrid = ({ images, className }) => (
 );
 
 PhotoGrid.propTypes = {
-  images: PropTypes.object.isRequired,
+  images: PropTypes.array.isRequired,
   className: PropTypes.string
 };
 

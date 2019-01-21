@@ -1,17 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
 import Wrapper from "../../Components/Wrapper";
 import Loader from "../../Components/Loader";
-import UserCard from "../../Components/UserCard";
 import PhotoGrid from "../../Components/PhotoGrid";
-
-const UsersWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 200px));
-  grid-gap: 25px;
-  margin-bottom: 85px;
-`;
+import UserGrid from "../../Components/UserGrid";
 
 const ExplorePresenter = ({ data, loading }) => {
   if (loading) {
@@ -23,19 +15,7 @@ const ExplorePresenter = ({ data, loading }) => {
     } = data;
     return (
       <Wrapper>
-        {users && (
-          <UsersWrapper>
-            {users.map(user => (
-              <UserCard
-                key={user.id}
-                id={user.id}
-                avatar={user.profile.avatar}
-                username={user.username}
-                isFollowing={user.profile.isFollowing}
-              />
-            ))}
-          </UsersWrapper>
-        )}
+        {users && <UserGrid users={users} />}
         {images && <PhotoGrid images={images} />}
       </Wrapper>
     );
