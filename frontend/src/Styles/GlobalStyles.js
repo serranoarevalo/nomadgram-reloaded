@@ -21,6 +21,10 @@ const GlobalStyles = createGlobalStyle`
             outline:none;
         }
     }
+    a{
+        text-decoration:none;
+        color:inherit;
+    }
 `;
 
 export default GlobalStyles;

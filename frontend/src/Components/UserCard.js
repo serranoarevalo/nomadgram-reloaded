@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 import FollowBtn from "./FollowBtn";
 import Bold from "./Bold";
@@ -21,12 +22,17 @@ const SAvatar = styled(Avatar)`
 
 const SBold = styled(Bold)`
   margin-bottom: 10px;
+  display: block;
 `;
 
 const UserCard = ({ id, avatar, username, isFollowing }) => (
   <Container>
-    <SAvatar url={avatar} size="md" />
-    <SBold text={username} />
+    <Link to={`/${username}`}>
+      <SAvatar url={avatar} size="md" />
+    </Link>
+    <Link to={`/${username}`}>
+      <SBold text={username} />
+    </Link>
     <FollowBtn isFollowing={isFollowing} userId={id} />
   </Container>
 );
