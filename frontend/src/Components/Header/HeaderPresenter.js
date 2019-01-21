@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Wrapper from "./Wrapper";
-import { Profile, Compass, HeartEmpty } from "../Icons";
-import Me from "./Me";
+import Wrapper from "../Wrapper";
+import { Profile, Compass, HeartEmpty } from "../../Icons";
+import Me from "../Me";
 
 const Header = styled.header`
   background-color: white;
@@ -58,7 +59,7 @@ const Icon = styled.span`
   }
 `;
 
-export default () => (
+const HeaderPresenter = ({ onSubmit, onChange, search }) => (
   <Header>
     <SWrapper>
       <Column>
@@ -74,7 +75,9 @@ export default () => (
         </Link>
       </Column>
       <Column>
-        <Input placeholder="Search" />
+        <form onSubmit={onSubmit}>
+          <Input placeholder="Search" value={search} onChange={onChange} />
+        </form>
       </Column>
       <Column>
         <Icon>
@@ -100,3 +103,11 @@ export default () => (
     </SWrapper>
   </Header>
 );
+
+HeaderPresenter.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  search: PropTypes.string
+};
+
+export default HeaderPresenter;
