@@ -21,10 +21,12 @@ class SearchContainer extends React.Component {
     return (
       <SearchQuery
         query={SEARCH}
-        variables={{ term: "hello how" }}
+        variables={{ term: cleanSearch }}
         skip={!cleanSearch}
       >
-        {({ data }) => <SearchPresenter data={data} empty={!cleanSearch} />}
+        {({ data, loading }) => (
+          <SearchPresenter loading={loading} data={data} empty={!cleanSearch} />
+        )}
       </SearchQuery>
     );
   }
