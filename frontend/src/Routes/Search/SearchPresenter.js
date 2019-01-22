@@ -5,6 +5,7 @@ import Wrapper from "../../Components/Wrapper";
 import Bold from "../../Components/Bold";
 import UserGrid from "../../Components/UserGrid";
 import PhotoGrid from "../../Components/PhotoGrid";
+import Loader from "../../Components/Loader";
 
 const TallWrapper = styled(Wrapper)`
   height: 50vh;
@@ -33,11 +34,7 @@ const SearchPresenter = ({ data, empty, loading }) => {
       </TallWrapper>
     );
   } else if (loading) {
-    return (
-      <TallWrapper>
-        <Bold text="Loading" />
-      </TallWrapper>
-    );
+    return <Loader />;
   }
 
   return null;

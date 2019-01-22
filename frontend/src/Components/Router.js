@@ -13,6 +13,7 @@ import Header from "./Header";
 
 const Wrapper = styled.div`
   padding-top: 135px;
+  min-height: 50vh;
 `;
 
 const LoggedInPages = () => (

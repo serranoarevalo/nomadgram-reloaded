@@ -16,7 +16,9 @@ class ProfileContainer extends React.Component {
 
     return (
       <ProfileQuery query={GET_USER} variables={{ username }}>
-        {() => <ProfilePresenter />}
+        {({ data, loading }) => (
+          <ProfilePresenter loading={loading} data={data} />
+        )}
       </ProfileQuery>
     );
   }
