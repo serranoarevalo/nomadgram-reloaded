@@ -1,10 +1,10 @@
 import gql from "graphql-tag";
 import { DETAIL_IMAGE_FRAGMENT } from "../../sharedQueries";
 
-export const GET_FEED = gql`
-  query feed($page: Int!) {
-    feed(page: $page) {
-      images {
+export const GET_IMAGE = gql`
+  query imageDetail($id: Int!) {
+    imageDetail(imageId: $id) {
+      image {
         ...DetailParts
       }
     }

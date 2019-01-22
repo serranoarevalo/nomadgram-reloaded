@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import Avatar from "../../Components/Avatar";
 import Wrapper from "../../Components/Wrapper";
 import Bold from "../../Components/Bold";
 import PhotoGrid from "../../Components/PhotoGrid";
+import Button from "../../Components/Button";
 
 const SWrapper = styled(Wrapper)`
   width: 45%;
@@ -56,6 +58,13 @@ const Url = styled.a`
   font-weight: 600;
 `;
 
+const UsernameRow = styled.div`
+  display: flex;
+  ${Username} {
+    margin-right: 20px;
+  }
+`;
+
 const ProfilePresenter = ({ data, loading }) => {
   if (loading) {
     return <Loader />;
@@ -69,7 +78,14 @@ const ProfilePresenter = ({ data, loading }) => {
           <Header>
             <Avatar size="lg" url={user.profile.avatar} />
             <HeaderColumn>
-              <Username>{user.username}</Username>
+              <UsernameRow>
+                <Username>{user.username}</Username>
+                {user.profile.isSelf && (
+                  <Link to="/edit-profile">
+                    <Button text="Edit Profile" inverted={true} />
+                  </Link>
+                )}
+              </UsernameRow>
               <Metrics>
                 <Metric>
                   <Bold text={String(user.profile.postCount)} /> posts

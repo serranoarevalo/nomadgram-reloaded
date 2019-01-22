@@ -25,3 +25,29 @@ export const IMAGE_FRAGMENT = gql`
     file
   }
 `;
+
+export const DETAIL_IMAGE_FRAGMENT = gql`
+  fragment DetailParts on ImageType {
+    id
+    file
+    caption
+    location
+    likeCount
+    commentCount
+    isLiked
+    createdAt
+    comments {
+      id
+      message
+      creator {
+        username
+      }
+    }
+    creator {
+      username
+      profile {
+        avatar
+      }
+    }
+  }
+`;

@@ -16,6 +16,8 @@ export const GET_USER = gql`
           postCount
           followersCount
           followingCount
+          isFollowing
+          isSelf
         }
         images {
           ...ImageParts

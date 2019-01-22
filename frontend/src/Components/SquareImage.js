@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { HeartFilled, BubbleFilled } from "../Icons";
 
@@ -45,18 +46,20 @@ const CountNumber = styled.div`
 `;
 
 const SquareImage = ({ id, file, commentCount, likeCount }) => (
-  <Square bg={file}>
-    <Overlay>
-      <Count>
-        <HeartFilled />
-        <CountNumber>{likeCount}</CountNumber>
-      </Count>
-      <Count>
-        <BubbleFilled />
-        <CountNumber>{commentCount}</CountNumber>
-      </Count>
-    </Overlay>
-  </Square>
+  <Link to={`/p/${id}`}>
+    <Square bg={file}>
+      <Overlay>
+        <Count>
+          <HeartFilled />
+          <CountNumber>{likeCount}</CountNumber>
+        </Count>
+        <Count>
+          <BubbleFilled />
+          <CountNumber>{commentCount}</CountNumber>
+        </Count>
+      </Overlay>
+    </Square>
+  </Link>
 );
 
 SquareImage.propTypes = {
