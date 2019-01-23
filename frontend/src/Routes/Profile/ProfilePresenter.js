@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Loader from "../../Components/Loader";
@@ -9,6 +9,7 @@ import Bold from "../../Components/Bold";
 import PhotoGrid from "../../Components/PhotoGrid";
 import Button from "../../Components/Button";
 import FollowBtn from "../../Components/FollowBtn";
+import { Gear } from "../../Icons";
 
 const SWrapper = styled(Wrapper)`
   width: 45%;
@@ -66,7 +67,68 @@ const UsernameRow = styled.div`
   }
 `;
 
-const ProfilePresenter = ({ data, loading }) => {
+const GearContainer = styled.span`
+  margin-left: 15px;
+  cursor: pointer;
+`;
+
+const ModalContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+`;
+
+const ModalOverlay = styled.div`
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+`;
+
+const ModalAnimation = keyframes`
+  from{
+    opacity:0;
+    transform:scale(1.1);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+`;
+
+const Modal = styled.div`
+  background-color: white;
+  width: 30%;
+  border-radius: 12px;
+  z-index: 5;
+  animation: ${ModalAnimation} 0.1s linear;
+`;
+
+const ModalLink = styled.div`
+  text-align: center;
+  min-height: 50px;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  :not(:last-child) {
+    border-bottom: 1px solid #efefef;
+  }
+`;
+
+const ProfilePresenter = ({
+  data,
+  loading,
+  modalOpen,
+  toggleModal,
+  logUserOut
+}) => {
   if (loading) {
     return <Loader />;
   } else if (!loading && data) {
@@ -75,6 +137,15 @@ const ProfilePresenter = ({ data, loading }) => {
     } = data;
     return (
       <>
+        {modalOpen && (
+          <ModalContainer>
+            <ModalOverlay onClick={toggleModal} />
+            <Modal>
+              <ModalLink onClick={logUserOut}>Log Out</ModalLink>
+              <ModalLink onClick={toggleModal}>Cancel</ModalLink>
+            </Modal>
+          </ModalContainer>
+        )}
         <SWrapper>
           <Header>
             <Avatar size="lg" url={user.profile.avatar} />
@@ -82,9 +153,14 @@ const ProfilePresenter = ({ data, loading }) => {
               <UsernameRow>
                 <Username>{user.username}</Username>
                 {user.profile.isSelf ? (
-                  <Link to="/edit-profile">
-                    <Button text="Edit Profile" inverted={true} />
-                  </Link>
+                  <>
+                    <Link to="/edit-profile">
+                      <Button text="Edit Profile" inverted={true} active />
+                    </Link>
+                    <GearContainer onClick={toggleModal}>
+                      <Gear />
+                    </GearContainer>
+                  </>
                 ) : (
                   <FollowBtn
                     isFollowing={user.profile.isFollowing}
@@ -122,7 +198,10 @@ const ProfilePresenter = ({ data, loading }) => {
 
 ProfilePresenter.propTypes = {
   data: PropTypes.object,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  modalOpen: PropTypes.bool.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  logUserOut: PropTypes.func.isRequired
 };
 
 export default ProfilePresenter;

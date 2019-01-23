@@ -6,6 +6,12 @@ export const LOG_USER_IN = gql`
   }
 `;
 
+export const LOG_USER_OUT = gql`
+  mutation logUserOut {
+    logUserOut @client
+  }
+`;
+
 export const USER_FRAGMENT = gql`
   fragment UserParts on UserType {
     id
