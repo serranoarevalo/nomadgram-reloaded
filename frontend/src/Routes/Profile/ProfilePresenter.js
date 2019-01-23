@@ -8,6 +8,7 @@ import Wrapper from "../../Components/Wrapper";
 import Bold from "../../Components/Bold";
 import PhotoGrid from "../../Components/PhotoGrid";
 import Button from "../../Components/Button";
+import FollowBtn from "../../Components/FollowBtn";
 
 const SWrapper = styled(Wrapper)`
   width: 45%;
@@ -80,10 +81,15 @@ const ProfilePresenter = ({ data, loading }) => {
             <HeaderColumn>
               <UsernameRow>
                 <Username>{user.username}</Username>
-                {user.profile.isSelf && (
+                {user.profile.isSelf ? (
                   <Link to="/edit-profile">
                     <Button text="Edit Profile" inverted={true} />
                   </Link>
+                ) : (
+                  <FollowBtn
+                    isFollowing={user.profile.isFollowing}
+                    userId={user.id}
+                  />
                 )}
               </UsernameRow>
               <Metrics>

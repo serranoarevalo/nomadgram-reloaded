@@ -13,7 +13,6 @@ class ProfileContainer extends React.Component {
         params: { username }
       }
     } = this.props;
-
     return (
       <ProfileQuery query={GET_USER} variables={{ username }}>
         {({ data, loading }) => (
