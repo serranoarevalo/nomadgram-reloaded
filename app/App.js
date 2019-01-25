@@ -1,18 +1,7 @@
 import React from "react";
 import { AppLoading, Font, Asset } from "expo";
-import styled from "styled-components";
 import { Ionicons } from "@expo/vector-icons";
-
-const Container = styled.View`
-  flex: 1;
-  background-color: #fff;
-  align-items: center;
-  justify-content: center;
-`;
-
-const RedText = styled.Text`
-  color: red;
-`;
+import AppNavigator from "./navigation/AppNavigator";
 
 export default class App extends React.Component {
   state = {
@@ -51,11 +40,7 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return (
-        <Container>
-          <RedText>lalal</RedText>
-        </Container>
-      );
+      return <AppNavigator />;
     }
   }
 }
