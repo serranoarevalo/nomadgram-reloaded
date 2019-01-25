@@ -16,7 +16,7 @@ const clientOptions = {
       Mutation: {
         logUserIn: async (_, { token }, { cache }) => {
           try {
-            await AsyncStorage.setItem(JWT, token);
+            await AsyncStorage.setItem(JWT, String(token));
             cache.writeData({
               data: {
                 auth: {

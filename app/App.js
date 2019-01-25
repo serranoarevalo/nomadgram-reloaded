@@ -15,24 +15,25 @@ export default class App extends React.Component {
     client: null
   };
 
-  loadAssetsAsync = async () => {
+  loadAppAsync = async () => {
     const cache = new InMemoryCache();
+    let client;
     try {
       await Asset.loadAsync([
         require("./assets/logo-white.png"),
         require("./assets/logo.png")
-      ]),
-        await Font.loadAsync({
-          ...Ionicons.font
-        });
+      ]);
+      await Font.loadAsync({
+        ...Ionicons.font
+      });
       await persistCache({
         cache,
         storage: AsyncStorage
       });
+      client = new ApolloClient({ cache, ...clientOptions });
     } catch (err) {
       console.log(err);
     } finally {
-      const client = new ApolloClient({ ...clientOptions, cache });
       this.setState({
         client
       });
@@ -62,7 +63,7 @@ export default class App extends React.Component {
         <AppLoading
           onError={this.handleLoadingError}
           onFinish={this.handleLoadingFinish}
-          startAsync={this.loadAssetsAsync}
+          startAsync={this.loadAppAsync}
         />
       );
     }
