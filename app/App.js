@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { persistCache } from "apollo-cache-persist";
 import ApolloClient from "apollo-boost";
-import AppNavigator from "./navigation/AppNavigator";
+import Root from "./components/Root";
 import clientOptions from "./apollo";
 
 export default class App extends React.Component {
@@ -54,7 +54,7 @@ export default class App extends React.Component {
     if (isLoaded && client) {
       return (
         <ApolloProvider client={client}>
-          <AppNavigator />
+          <Root />
         </ApolloProvider>
       );
     } else {

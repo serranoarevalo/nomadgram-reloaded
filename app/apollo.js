@@ -1,4 +1,5 @@
 import { AsyncStorage } from "react-native";
+import { getToken } from "./utils";
 
 const JWT = "jwt";
 
@@ -49,6 +50,14 @@ const clientOptions = {
         }
       }
     }
+  },
+  request: async operation => {
+    const token = await getToken();
+    operation.setContext({
+      headers: {
+        Authorization: `JWT ${token || ""}`
+      }
+    });
   }
 };
 
