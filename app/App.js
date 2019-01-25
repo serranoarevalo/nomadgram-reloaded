@@ -1,7 +1,9 @@
 import React from "react";
 import { AppLoading, Font, Asset } from "expo";
+import { ApolloProvider } from "react-apollo";
 import { Ionicons } from "@expo/vector-icons";
 import AppNavigator from "./navigation/AppNavigator";
+import client from "./apollo/client";
 
 export default class App extends React.Component {
   state = {
@@ -40,7 +42,11 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return <AppNavigator />;
+      return (
+        <ApolloProvider client={client}>
+          <AppNavigator />
+        </ApolloProvider>
+      );
     }
   }
 }
