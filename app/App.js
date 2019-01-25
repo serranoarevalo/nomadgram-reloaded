@@ -1,5 +1,5 @@
 import React from "react";
-import { AppLoading, Font } from "expo";
+import { AppLoading, Font, Asset } from "expo";
 import styled from "styled-components";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -19,11 +19,16 @@ export default class App extends React.Component {
     isLoaded: false
   };
 
-  loadAssetsAsync = async () => {
-    Font.loadAsync({
-      ...Ionicons.font
-    });
-  };
+  loadAssetsAsync = async () =>
+    Promise.all([
+      Asset.loadAsync([
+        require("./assets/logo-white.png"),
+        require("./assets/logo.png")
+      ]),
+      Font.loadAsync({
+        ...Ionicons.font
+      })
+    ]);
 
   handleLoadingError = error => {
     console.warn(error);
