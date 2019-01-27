@@ -34,3 +34,8 @@
 - [x] See New Users to Follow
 - [x] See Latest Images
 - [x] Mark Notification as Read
+- [ ] Add Story
+- [ ] Delete Story
+- [ ] See Stories
+- [ ] Expire Storie
+- [ ] Multiple Photos per Post
