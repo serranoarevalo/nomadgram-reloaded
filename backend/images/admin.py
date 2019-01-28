@@ -17,6 +17,6 @@ class LikeAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(models.FileImage)
+@admin.register(models.File)
 class FileImageAdmin(admin.ModelAdmin):
     pass

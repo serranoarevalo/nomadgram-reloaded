@@ -256,7 +256,7 @@ class UploadImage(graphene.Mutation):
 
             for file in files:
                 try:
-                    fileImage = models.FileImage.objects.create(
+                    fileImage = models.File.objects.create(
                         fileURL=file.url, creator=user, is_video=file.is_video)
                     image.files.add(fileImage)
                     image.save()
