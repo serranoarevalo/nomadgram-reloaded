@@ -4,6 +4,16 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from config import models as config_models
 
 
+class FileImage(config_models.TimeStampedModel):
+
+    fileURL = models.URLField()
+    creator = models.ForeignKey(
+        User, related_name='file_images', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.creator.username
+
+
 class Image(config_models.TimeStampedModel):
 
     """ Image Model """
@@ -12,6 +22,7 @@ class Image(config_models.TimeStampedModel):
         User, related_name='images', on_delete=models.CASCADE)
     caption = models.TextField()
     location = models.CharField(max_length=140, blank=True, null=True)
+    files = models.ManyToManyField(FileImage)
     file = models.URLField()
 
     @property

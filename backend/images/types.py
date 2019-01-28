@@ -22,6 +22,12 @@ class ImageType(DjangoObjectType):
         model = models.Image
 
 
+class FileType(DjangoObjectType):
+
+    class Meta:
+        model = models.FileImage
+
+
 class LikeType(DjangoObjectType):
 
     class Meta:

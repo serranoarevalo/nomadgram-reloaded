@@ -38,4 +38,4 @@
 - [ ] Delete Story
 - [ ] See Stories
 - [ ] Expire Storie
-- [ ] Multiple Photos per Post
+- [x] Multiple Photos per Post

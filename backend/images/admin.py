@@ -15,3 +15,8 @@ class CommentAdmin(admin.ModelAdmin):
 @admin.register(models.Like)
 class LikeAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(models.FileImage)
+class FileImageAdmin(admin.ModelAdmin):
+    pass
