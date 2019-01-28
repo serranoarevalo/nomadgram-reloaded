@@ -232,7 +232,7 @@ class UploadImage(graphene.Mutation):
 
     class Arguments:
 
-        fileUrls = graphene.List(graphene.String)
+        files = graphene.List(types.FileInputType)
         caption = graphene.String(required=True)
         location = graphene.String()
 
@@ -246,7 +246,7 @@ class UploadImage(graphene.Mutation):
         ok = True
         error = None
 
-        fileUrls = kwargs.get('fileUrls')
+        files = kwargs.get('files')
         caption = kwargs.get('caption')
         location = kwargs.get('location')
 
@@ -254,10 +254,10 @@ class UploadImage(graphene.Mutation):
             image = models.Image.objects.create(
                 creator=user, caption=caption, location=location)
 
-            for url in fileUrls:
+            for file in files:
                 try:
                     fileImage = models.FileImage.objects.create(
-                        fileURL=url, creator=user)
+                        fileURL=file.url, creator=user, is_video=file.is_video)
                     image.files.add(fileImage)
                     image.save()
                 except IntegrityError as e:

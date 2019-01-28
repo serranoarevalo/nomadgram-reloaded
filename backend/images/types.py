@@ -90,3 +90,8 @@ class LatestImagesResponse(graphene.ObjectType):
 
 class PhotoLikeResponse(graphene.ObjectType):
     likes = graphene.List(LikeType)
+
+
+class FileInputType(graphene.InputObjectType):
+    url = graphene.String()
+    is_video = graphene.Boolean()
