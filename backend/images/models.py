@@ -8,7 +8,7 @@ class FileImage(config_models.TimeStampedModel):
 
     fileURL = models.URLField()
     creator = models.ForeignKey(
-        User, related_name='file_images', on_delete=models.CASCADE)
+        User, related_name='file_images', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.creator.username

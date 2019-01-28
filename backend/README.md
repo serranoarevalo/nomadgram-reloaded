@@ -39,3 +39,4 @@
 - [ ] See Stories
 - [ ] Expire Storie
 - [x] Multiple Photos per Post
+- [x] Add Photos to Post

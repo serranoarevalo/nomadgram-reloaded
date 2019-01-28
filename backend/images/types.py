@@ -76,7 +76,7 @@ class DeleteImageResponse(graphene.ObjectType, config_types.ResponseFields):
     pass
 
 
-class UploadImageResponse(graphene.ObjectType, config_types.ResponseFields):
+class UploadImageResponse(graphene.ObjectType):
     image = graphene.Field(ImageType)
 
 

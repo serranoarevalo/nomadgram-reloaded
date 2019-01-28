@@ -232,12 +232,13 @@ class UploadImage(graphene.Mutation):
 
     class Arguments:
 
-        fileUrl = graphene.String(required=True)
+        fileUrls = graphene.List(graphene.String)
         caption = graphene.String(required=True)
         location = graphene.String()
 
     Output = types.UploadImageResponse
 
+    @login_required
     def mutate(self, info, **kwargs):
 
         user = info.context.user
@@ -245,22 +246,25 @@ class UploadImage(graphene.Mutation):
         ok = True
         error = None
 
-        fileUrl = kwargs.get('fileUrl')
+        fileUrls = kwargs.get('fileUrls')
         caption = kwargs.get('caption')
         location = kwargs.get('location')
 
-        if user.is_authenticated:
+        try:
+            image = models.Image.objects.create(
+                creator=user, caption=caption, location=location)
 
-            try:
-                image = models.Image.objects.create(
-                    creator=user, caption=caption, location=location, file=fileUrl)
-                return types.UploadImageResponse(ok=ok, error=error, image=image)
-            except IntegrityError as e:
-                print(e)
-                error = "Can't Create Image"
-                return types.UploadImageResponse(ok=not ok, error=error)
+            for url in fileUrls:
+                try:
+                    fileImage = models.FileImage.objects.create(
+                        fileURL=url, creator=user)
+                    image.files.add(fileImage)
+                    image.save()
+                except IntegrityError as e:
+                    print(e)
+                    raise Exception("Can't Create Image")
 
-        else:
-
-            error = "Unauthorized"
-            return types.UploadImageResponse(ok=not ok, error=error)
+            return types.UploadImageResponse(image=image)
+        except IntegrityError as e:
+            print(e)
+            raise Exception("Can't Create Image")
