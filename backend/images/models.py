@@ -6,7 +6,7 @@ from config import models as config_models
 
 class File(config_models.TimeStampedModel):
 
-    fileURL = models.URLField()
+    url = models.URLField()
     is_video = models.BooleanField(default=False)
     creator = models.ForeignKey(
         User, related_name='file_images', on_delete=models.CASCADE, null=True)
@@ -24,7 +24,6 @@ class Image(config_models.TimeStampedModel):
     caption = models.TextField()
     location = models.CharField(max_length=140, blank=True, null=True)
     files = models.ManyToManyField(File, related_name='parent')
-    file = models.URLField()
 
     @property
     def like_count(self):

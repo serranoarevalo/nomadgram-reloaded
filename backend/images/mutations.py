@@ -232,7 +232,7 @@ class UploadImage(graphene.Mutation):
 
     class Arguments:
 
-        files = graphene.List(types.FileInputType)
+        files = graphene.List(types.FileInputType, required=True)
         caption = graphene.String(required=True)
         location = graphene.String()
 
@@ -242,9 +242,6 @@ class UploadImage(graphene.Mutation):
     def mutate(self, info, **kwargs):
 
         user = info.context.user
-
-        ok = True
-        error = None
 
         files = kwargs.get('files')
         caption = kwargs.get('caption')
@@ -268,3 +265,46 @@ class UploadImage(graphene.Mutation):
         except IntegrityError as e:
             print(e)
             raise Exception("Can't Create Image")
+
+
+class AddStory(graphene.Mutation):
+
+    class Arguments:
+
+        file = types.FileInputType(required=True)
+
+    Output = types.AddStoryResponse
+
+    @login_required
+    def mutate(self, info, **kwargs):
+
+        file = kwargs.get('file')
+        user = info.context.user
+
+        try:
+            story = models.Story.objects.create(
+                url=file.url, is_video=file.is_video, creator=user)
+            return types.AddStoryResponse(ok=True)
+        except IntegrityError as e:
+            raise Exception("Can't Upload Photo")
+
+
+class DeleteStory(graphene.Mutation):
+
+    class Arguments:
+        id = graphene.Int()
+
+    ok = graphene.Boolean()
+
+    @login_required
+    def mutate(self, info, **kwargs):
+
+        id = kwargs.get('id')
+        user = info.context.user
+
+        try:
+            story = models.Story.objects.get(id=id, creator=user)
+            story.delete()
+            return DeleteStory(ok=True)
+        except models.Story.DoesNotExist:
+            raise Exception("Story not found")

@@ -86,3 +86,34 @@ def resolve_latest_images(self, info):
 
     images = models.Image.objects.filter().order_by('-created_at')[:10]
     return types.LatestImagesResponse(images=images)
+
+
+@login_required
+def resolve_stories(self, info):
+    user = info.context.user
+
+    user = info.context.user
+    page = kwargs.get('page', 0)
+
+    following_users = user.profile.following.all()
+
+    story_list = []
+
+    for following_user in following_users:
+
+        user_images = following_user.user.images.all()[2 * page:2]
+
+        for image in user_images:
+
+            image_list.append(image)
+
+    my_images = user.images.all()[2 * page:2]
+
+    for image in my_images:
+
+        image_list.append(image)
+
+    images = sorted(
+        image_list, key=lambda image: image.created_at, reverse=True)
+
+    return types.FeedResponse(images=images)

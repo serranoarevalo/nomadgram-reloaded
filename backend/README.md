@@ -36,7 +36,7 @@
 - [x] Mark Notification as Read
 - [x] Multiple Photos per Post
 - [x] Add Photos to Post
-- [ ] Add Story
-- [ ] Delete Story
+- [x] Add Story
+- [x] Delete Story
 - [ ] See Stories
 - [ ] Expire Storie

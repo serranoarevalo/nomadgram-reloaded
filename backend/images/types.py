@@ -40,6 +40,12 @@ class CommentType(DjangoObjectType):
         model = models.Comment
 
 
+class StoryType(DjangoObjectType):
+
+    class Meta:
+        model = models.Story
+
+
 class FeedResponse(graphene.ObjectType):
     images = graphene.List(ImageType)
 
@@ -95,3 +101,15 @@ class PhotoLikeResponse(graphene.ObjectType):
 class FileInputType(graphene.InputObjectType):
     url = graphene.String()
     is_video = graphene.Boolean()
+
+
+class AddStoryResponse(graphene.ObjectType):
+    ok = graphene.Boolean()
+
+
+class DeleteStoryResponse(graphene.ObjectType):
+    ok = graphene.Boolean()
+
+
+class StoriesResponse(graphene.ObjectType):
+    stories = graphene.List(StoryType)

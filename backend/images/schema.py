@@ -18,6 +18,10 @@ class Query(object):
     latest_images = graphene.Field(
         types.LatestImagesResponse, resolver=queries.resolve_latest_images, required=True)
 
+    stories = graphene.Field(
+        types.StoriesResponse, resolver=queries.resolve_stories, required=True
+    )
+
 
 class Mutation(object):
 
@@ -27,3 +31,5 @@ class Mutation(object):
     edit_image = mutations.EditImage.Field(required=True)
     delete_image = mutations.DeleteImage.Field(required=True)
     upload_image = mutations.UploadImage.Field(required=True)
+    add_story = mutations.AddStory.Field(required=True)
+    delete_story = mutations.DeleteStory.Field(required=True)
