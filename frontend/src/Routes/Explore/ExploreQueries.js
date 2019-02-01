@@ -7,7 +7,10 @@ export const EXPLORE_QUERY = gql`
         id
         likeCount
         commentCount
-        file
+        files {
+          id
+          url
+        }
       }
     }
     latestUsers {

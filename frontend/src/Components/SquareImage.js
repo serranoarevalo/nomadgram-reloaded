@@ -45,9 +45,9 @@ const CountNumber = styled.div`
   margin-left: 10px;
 `;
 
-const SquareImage = ({ id, file, commentCount, likeCount }) => (
+const SquareImage = ({ id, files, commentCount, likeCount }) => (
   <Link to={`/p/${id}`}>
-    <Square bg={file}>
+    <Square bg={files[0].url}>
       <Overlay>
         <Count>
           <HeartFilled />
@@ -64,7 +64,7 @@ const SquareImage = ({ id, file, commentCount, likeCount }) => (
 
 SquareImage.propTypes = {
   id: PropTypes.string.isRequired,
-  file: PropTypes.string.isRequired,
+  files: PropTypes.array.isRequired,
   commentCount: PropTypes.number.isRequired,
   likeCount: PropTypes.number.isRequired
 };

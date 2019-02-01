@@ -31,8 +31,11 @@ const Location = styled.span`
 `;
 
 const Image = styled.img`
+  position: absolute;
   max-width: 100%;
-  min-width: 100%;
+  width: 100%;
+  opacity: ${props => (props.selected ? "1" : "0")};
+  transition: opacity 0.5s linear;
 `;
 
 const Meta = styled.div`
@@ -67,6 +70,11 @@ const STextArea = styled(Textarea)`
   padding: 15px 0px;
 `;
 
+const SliderContainer = styled.div`
+  position: relative;
+  padding-bottom: 100%;
+`;
+
 const DetailContainer = styled.div`
   display: flex;
   background-color: white;
@@ -85,7 +93,7 @@ const DetailContainer = styled.div`
       border-bottom: 1px solid #efefef;
     }
   }
-  ${Image} {
+  ${SliderContainer} {
     min-width: 0%;
     width: 550px;
   }
@@ -96,12 +104,42 @@ const DetailContainer = styled.div`
   }
 `;
 
+const Arrow = styled.div`
+  position: absolute;
+  z-index: 2;
+  font-size: 26px;
+  top: 50%;
+  cursor: pointer;
+`;
+
+const LeftArrow = styled(Arrow)`
+  left: 10px;
+`;
+
+const RightArrow = styled(Arrow)`
+  right: 10px;
+`;
+
+const renderImages = (currentSlide, files, onNextClick, onPreviousClick) => (
+  <SliderContainer>
+    <LeftArrow onClick={onPreviousClick}>👈🏻</LeftArrow>
+    {files.map(file => (
+      <Image
+        src={file.url}
+        key={file.id}
+        selected={files.indexOf(file) + 1 === currentSlide}
+      />
+    ))}
+    <RightArrow onClick={onNextClick}>👉🏻</RightArrow>
+  </SliderContainer>
+);
+
 const PhotoPresenter = ({
   inline = false,
   creatorAvatar,
   creatorUsername,
   location,
-  photoUrl,
+  files,
   likeCount,
   caption,
   createdAt,
@@ -111,7 +149,10 @@ const PhotoPresenter = ({
   isLiked,
   onLikeClick,
   selfComments,
-  onKeyUp
+  onKeyUp,
+  currentSlide,
+  onNextClick,
+  onPreviousClick
 }) => {
   if (inline) {
     return (
@@ -127,7 +168,7 @@ const PhotoPresenter = ({
             <Location>{location}</Location>
           </HeaderColumn>
         </Header>
-        <Image src={photoUrl} />
+        {renderImages(currentSlide, files, onNextClick, onPreviousClick)}
         <Meta>
           <PhotoButtons isLiked={isLiked} onClick={onLikeClick} />
           <Bold text={likeCount === 1 ? "1 like" : `${likeCount} likes`} />
@@ -167,7 +208,7 @@ const PhotoPresenter = ({
   } else {
     return (
       <DetailContainer>
-        <Image src={photoUrl} />
+        {renderImages(currentSlide, files, onNextClick, onPreviousClick)}
         <Meta>
           <Header>
             <Link to={`/${creatorUsername}`}>
@@ -180,7 +221,6 @@ const PhotoPresenter = ({
               <Location>{location}</Location>
             </HeaderColumn>
           </Header>
-
           <Comments>
             <Comment username={creatorUsername} comment={caption} />
             {comments &&
@@ -225,7 +265,10 @@ PhotoPresenter.propTypes = {
   isLiked: PropTypes.bool.isRequired,
   onLikeClick: PropTypes.func.isRequired,
   selfComments: PropTypes.array,
-  onKeyUp: PropTypes.func.isRequired
+  onKeyUp: PropTypes.func.isRequired,
+  currentSlide: PropTypes.number.isRequired,
+  onNextClick: PropTypes.func.isRequired,
+  onPreviousClick: PropTypes.func.isRequired
 };
 
 export default PhotoPresenter;

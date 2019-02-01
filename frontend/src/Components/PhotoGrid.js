@@ -16,7 +16,7 @@ const PhotoGrid = ({ images, className }) => (
       <SquareImage
         key={image.id}
         id={image.id}
-        file={image.file}
+        files={image.files}
         likeCount={image.likeCount}
         commentCount={image.commentCount}
       />

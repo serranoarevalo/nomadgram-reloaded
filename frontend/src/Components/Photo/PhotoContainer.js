@@ -23,7 +23,12 @@ export default class PhotoContainer extends React.Component {
     creatorAvatar: PropTypes.string.isRequired,
     creatorUsername: PropTypes.string.isRequired,
     location: PropTypes.string,
-    photoUrl: PropTypes.string.isRequired,
+    files: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired
+      }).isRequired
+    ).isRequired,
     likeCount: PropTypes.number.isRequired,
     commentCount: PropTypes.number.isRequired,
     caption: PropTypes.string.isRequired,
@@ -37,7 +42,9 @@ export default class PhotoContainer extends React.Component {
       newComment: "",
       isLiked: props.isLiked,
       likeCount: props.likeCount,
-      selfComments: []
+      selfComments: [],
+      currentSlide: 1,
+      slides: props.files.length
     };
   }
 
@@ -47,14 +54,20 @@ export default class PhotoContainer extends React.Component {
       creatorAvatar,
       creatorUsername,
       location,
-      photoUrl,
+      files,
       commentCount,
       caption,
       createdAt,
       comments,
       id
     } = this.props;
-    const { newComment, isLiked, likeCount, selfComments } = this.state;
+    const {
+      newComment,
+      isLiked,
+      likeCount,
+      selfComments,
+      currentSlide
+    } = this.state;
     return (
       <AddCommentMutation
         mutation={ADD_COMMENT}
@@ -77,7 +90,7 @@ export default class PhotoContainer extends React.Component {
                     creatorAvatar={creatorAvatar}
                     creatorUsername={creatorUsername}
                     location={location}
-                    photoUrl={photoUrl}
+                    files={files}
                     likeCount={likeCount}
                     commentCount={commentCount}
                     caption={caption}
@@ -89,6 +102,9 @@ export default class PhotoContainer extends React.Component {
                     onLikeClick={this.onLikeClick}
                     selfComments={selfComments}
                     onKeyUp={this.onKeyUp}
+                    currentSlide={currentSlide}
+                    onNextClick={this.onNextClick}
+                    onPreviousClick={this.onPreviousClick}
                   />
                 );
               }}
@@ -159,6 +175,37 @@ export default class PhotoContainer extends React.Component {
             }
           ],
           newComment: ""
+        };
+      });
+    }
+  };
+
+  onNextClick = () => {
+    const { slides, currentSlide } = this.state;
+    console.log(slides, currentSlide);
+    if (currentSlide === slides) {
+      this.setState({
+        currentSlide: 1
+      });
+    } else {
+      this.setState(state => {
+        return {
+          currentSlide: state.currentSlide + 1
+        };
+      });
+    }
+  };
+
+  onPreviousClick = () => {
+    const { slides, currentSlide } = this.state;
+    if (currentSlide === slides) {
+      this.setState({
+        currentSlide: 1
+      });
+    } else {
+      this.setState(state => {
+        return {
+          currentSlide: state.currentSlide - 1
         };
       });
     }

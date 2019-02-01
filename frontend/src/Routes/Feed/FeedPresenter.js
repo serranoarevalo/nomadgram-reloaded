@@ -25,7 +25,7 @@ const FeedPresenter = ({ data, loading, error }) => {
               creatorAvatar={image.creator.profile.avatar}
               creatorUsername={image.creator.username}
               location={image.location}
-              photoUrl={image.file}
+              files={image.files}
               likeCount={image.likeCount}
               commentCount={image.commentCount}
               caption={image.caption}

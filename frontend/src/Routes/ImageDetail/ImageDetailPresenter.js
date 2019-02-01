@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
 import Loader from "../../Components/Loader";
 import Photo from "../../Components/Photo";
@@ -20,7 +19,7 @@ const ImageDetailPresenter = ({ data, loading }) => {
           creatorAvatar={image.creator.profile.avatar}
           creatorUsername={image.creator.username}
           location={image.location}
-          photoUrl={image.file}
+          files={image.files}
           likeCount={image.likeCount}
           commentCount={image.commentCount}
           caption={image.caption}

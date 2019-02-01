@@ -13,6 +13,7 @@ export default () => (
   <ThemeProvider theme={theme}>
     <>
       <GlobalStyles />
+      <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
       <Query query={APP_QUERIES}>
         {({
           data: {
@@ -21,7 +22,6 @@ export default () => (
         }) => <Router isLoggedIn={isLoggedIn} />}
       </Query>
       <Footer />
-      <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
     </>
   </ThemeProvider>
 );

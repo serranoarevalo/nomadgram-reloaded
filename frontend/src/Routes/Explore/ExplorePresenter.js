@@ -15,8 +15,8 @@ const ExplorePresenter = ({ data, loading }) => {
     } = data;
     return (
       <Wrapper>
-        {users && <UserGrid users={users} />}
-        {images && <PhotoGrid images={images} />}
+        {users && users.length > 0 && <UserGrid users={users} />}
+        {images && images.length > 0 && <PhotoGrid images={images} />}
       </Wrapper>
     );
   } else {

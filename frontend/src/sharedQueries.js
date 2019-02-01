@@ -28,14 +28,20 @@ export const IMAGE_FRAGMENT = gql`
     id
     likeCount
     commentCount
-    file
+    files {
+      id
+      url
+    }
   }
 `;
 
 export const DETAIL_IMAGE_FRAGMENT = gql`
   fragment DetailParts on ImageType {
     id
-    file
+    files {
+      id
+      url
+    }
     caption
     location
     likeCount
