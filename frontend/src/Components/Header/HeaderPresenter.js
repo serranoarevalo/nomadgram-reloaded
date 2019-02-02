@@ -94,7 +94,7 @@ const HeaderPresenter = ({ onSubmit, onChange, search }) => (
         <Icon>
           <Me>
             {me => (
-              <Link to={me ? me.user.username : ""}>
+              <Link to={`/${me ? me.user.username : ""}`}>
                 <Profile />
               </Link>
             )}

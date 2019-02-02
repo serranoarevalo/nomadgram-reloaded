@@ -79,6 +79,7 @@ const ModalContainer = styled.div`
   position: fixed;
   height: 100%;
   width: 100%;
+  z-index: 5;
   top: 0;
 `;
 
@@ -105,7 +106,7 @@ const Modal = styled.div`
   background-color: white;
   width: 30%;
   border-radius: 12px;
-  z-index: 5;
+  z-index: 10;
   animation: ${ModalAnimation} 0.1s linear;
 `;
 

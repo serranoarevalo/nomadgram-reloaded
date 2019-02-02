@@ -80,7 +80,7 @@ const DetailContainer = styled.div`
   background-color: white;
   border-radius: 3px;
   overflow: hidden;
-  height: 600px;
+  height: 550px;
   border: ${props => props.theme.boxBorder};
   ${Meta} {
     flex-grow: 1;
@@ -96,6 +96,7 @@ const DetailContainer = styled.div`
   ${SliderContainer} {
     min-width: 0%;
     width: 550px;
+    padding-bottom: 0;
   }
   ${Comments} {
     min-height: 50%;
@@ -122,7 +123,11 @@ const RightArrow = styled(Arrow)`
 
 const renderImages = (currentSlide, files, onNextClick, onPreviousClick) => (
   <SliderContainer>
-    <LeftArrow onClick={onPreviousClick}>👈🏻</LeftArrow>
+    <LeftArrow onClick={onPreviousClick}>
+      <span role="img" aria-label="previous">
+        👈🏻
+      </span>
+    </LeftArrow>
     {files.map(file => (
       <Image
         src={file.url}
@@ -130,7 +135,11 @@ const renderImages = (currentSlide, files, onNextClick, onPreviousClick) => (
         selected={files.indexOf(file) + 1 === currentSlide}
       />
     ))}
-    <RightArrow onClick={onNextClick}>👉🏻</RightArrow>
+    <RightArrow onClick={onNextClick}>
+      <span role="img" aria-label="next">
+        👉🏻
+      </span>
+    </RightArrow>
   </SliderContainer>
 );
 
