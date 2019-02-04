@@ -38,3 +38,7 @@ class Profile(config_models.TimeStampedModel):
     @property
     def following_count(self):
         return self.following.all().count()
+
+    @property
+    def active_stories(self):
+        return self.user.stories.filter(expired=False)
