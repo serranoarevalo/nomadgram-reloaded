@@ -28,8 +28,7 @@ export default class App extends React.Component {
       });
       await persistCache({
         cache,
-        storage: AsyncStorage,
-        debug: true
+        storage: AsyncStorage
       });
       client = new ApolloClient({ ...clientOptions, cache });
     } catch (err) {
