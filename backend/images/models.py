@@ -79,3 +79,6 @@ class Story(config_models.TimeStampedModel):
 
     def __str__(self):
         return self.creator.username
+
+    class Meta:
+        verbose_name_plural = 'Stories'

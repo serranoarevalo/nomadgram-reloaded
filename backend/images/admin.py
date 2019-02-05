@@ -20,3 +20,8 @@ class LikeAdmin(admin.ModelAdmin):
 @admin.register(models.File)
 class FileImageAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(models.Story)
+class StoryAdmin(admin.ModelAdmin):
+    pass

@@ -38,5 +38,5 @@
 - [x] Add Photos to Post
 - [x] Add Story
 - [x] Delete Story
-- [ ] See Stories
+- [x] See Stories
 - [ ] Expire Storie

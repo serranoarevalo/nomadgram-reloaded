@@ -1,6 +1,7 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 from config import types as config_types
+from users import types as user_types
 from . import models
 
 
@@ -111,5 +112,10 @@ class DeleteStoryResponse(graphene.ObjectType):
     ok = graphene.Boolean()
 
 
+class StoriesObject(graphene.ObjectType):
+    user = graphene.Field(user_types.UserType, required=True)
+    stories = graphene.List(StoryType, required=True)
+
+
 class StoriesResponse(graphene.ObjectType):
-    stories = graphene.List(StoryType)
+    story_list = graphene.List(StoriesObject)
