@@ -39,4 +39,4 @@
 - [x] Add Story
 - [x] Delete Story
 - [x] See Stories
-- [ ] Expire Storie
+- [x] Expire Stories
