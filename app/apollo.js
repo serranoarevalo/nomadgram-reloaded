@@ -3,13 +3,13 @@ import { getToken } from "./utils";
 
 const JWT = "jwt";
 
-const clientOptions = {
+const clientOptions = hasToken => ({
   uri: "https://localhost:4000/graphql",
   clientState: {
     defaults: {
       auth: {
         __typename: "Auth",
-        isLoggedIn: false
+        isLoggedIn: hasToken !== null ? true : false
       }
     },
     resolvers: {
@@ -59,6 +59,6 @@ const clientOptions = {
       }
     });
   }
-};
+});
 
 export default clientOptions;

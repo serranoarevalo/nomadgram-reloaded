@@ -30,7 +30,8 @@ export default class App extends React.Component {
         cache,
         storage: AsyncStorage
       });
-      client = new ApolloClient({ ...clientOptions, cache });
+      const hasToken = await AsyncStorage.getItem("jwt");
+      client = new ApolloClient({ ...clientOptions(hasToken), cache });
     } catch (err) {
       console.log(err);
     } finally {
