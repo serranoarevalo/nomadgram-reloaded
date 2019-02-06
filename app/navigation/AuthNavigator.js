@@ -1,15 +1,14 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import Login from "../screens/LogIn";
-import SignUp from "../screens/SignUp";
+import Auth from "../screens/Auth";
 
 export default createAppContainer(
-  createStackNavigator({
-    Login: {
-      screen: Login,
-      navigationOptions: {
-        header: null
-      }
+  createStackNavigator(
+    {
+      Auth
     },
-    SignUp
-  })
+    {
+      mode: "modal",
+      headerMode: "none"
+    }
+  )
 );

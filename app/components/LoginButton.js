@@ -28,7 +28,7 @@ const LoginButton = ({ onTap, disabled, text }) => (
 );
 
 LoginButton.propTypes = {
-  onTap: PropTypes.func.isRequired,
+  onTap: PropTypes.func,
   disabled: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired
 };
