@@ -7,9 +7,3 @@ export const IS_LOGGED_IN = gql`
     }
   }
 `;
-
-export const LOG_IN = gql`
-  mutation logUserIn($token: String!) {
-    logUserIn(token: $token) @client
-  }
-`;

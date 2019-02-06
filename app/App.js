@@ -19,10 +19,7 @@ export default class App extends React.Component {
     const cache = new InMemoryCache();
     let client;
     try {
-      await Asset.loadAsync([
-        require("./assets/logo-white.png"),
-        require("./assets/logo.png")
-      ]);
+      await Asset.loadAsync([require("./assets/logo.png")]);
       await Font.loadAsync({
         ...Ionicons.font
       });

@@ -4,7 +4,12 @@ import SignUp from "../screens/SignUp";
 
 export default createAppContainer(
   createStackNavigator({
-    SignUp,
-    Login
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        header: null
+      }
+    },
+    SignUp
   })
 );
