@@ -1,8 +1,9 @@
 import React from "react";
+import { withNavigation } from "react-navigation";
 import LoginPresenter from "./LoginPresenter";
 import { isEmail } from "../../utils";
 
-export default class extends React.Component {
+class LoginContainer extends React.Component {
   state = {
     email: "",
     password: ""
@@ -15,6 +16,7 @@ export default class extends React.Component {
         password={password}
         onChangeText={this.onChangeText}
         onTap={this.onTap}
+        onSignUpTap={this.onSignUpTap}
       />
     );
   }
@@ -31,4 +33,10 @@ export default class extends React.Component {
       alert("Your email is not valid");
     }
   };
+  onSignUpTap = () => {
+    const { navigation } = this.props;
+    navigation.navigate("SignUp");
+  };
 }
+
+export default withNavigation(LoginContainer);

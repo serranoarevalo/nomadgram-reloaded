@@ -1,7 +1,7 @@
 import React from "react";
-import { KeyboardAvoidingView } from "react-native";
+import { KeyboardAvoidingView, TouchableOpacity } from "react-native";
 import styled from "styled-components";
-import { Layout } from "../../constants";
+import { Layout, Colors } from "../../constants";
 import LoginInput from "../../components/LoginInput";
 import LoginButton from "../../components/LoginButton";
 
@@ -17,9 +17,22 @@ const Logo = styled.Image`
 
 const Form = styled.View`
   width: ${Layout.width - Layout.padding}px;
+  margin-bottom: 50px;
 `;
 
-const LoginPresenter = ({ email, password, onChangeText, onTap }) => (
+const Link = styled.Text`
+  font-weight: 600;
+  color: ${Colors.darkBlueColor};
+  padding: 10px 0px;
+`;
+
+const LoginPresenter = ({
+  email,
+  password,
+  onChangeText,
+  onTap,
+  onSignUpTap
+}) => (
   <KeyboardAvoidingView style={{ flex: 1 }}>
     <Container>
       <Logo source={require("../../assets/logo.png")} />
@@ -41,6 +54,9 @@ const LoginPresenter = ({ email, password, onChangeText, onTap }) => (
           onTap={onTap}
         />
       </Form>
+      <TouchableOpacity onPress={onSignUpTap}>
+        <Link>Create an Account</Link>
+      </TouchableOpacity>
     </Container>
   </KeyboardAvoidingView>
 );
