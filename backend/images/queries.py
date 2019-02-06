@@ -8,29 +8,19 @@ def resolve_feed(self, info, **kwargs):
 
     user = info.context.user
     page = kwargs.get('page', 0)
+    offset = 5 * page
 
     following_profiles = user.profile.following.all()
 
-    image_list = []
+    images = models.Image.objects.filter(
+        creator__profile__in=following_profiles)
 
-    for following_profile in following_profiles:
+    my_images = user.images.all()
 
-        user_images = following_profile.user.images.all()[2 * page:2]
+    combined = images.union(my_images).order_by(
+        'created_at')[offset:5 + offset]
 
-        for image in user_images:
-
-            image_list.append(image)
-
-    my_images = user.images.all()[2 * page:2]
-
-    for image in my_images:
-
-        image_list.append(image)
-
-    images = sorted(
-        image_list, key=lambda image: image.created_at, reverse=True)
-
-    return types.FeedResponse(images=images)
+    return types.FeedResponse(images=combined)
 
 
 @login_required
