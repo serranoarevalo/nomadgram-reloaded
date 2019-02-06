@@ -52,7 +52,8 @@ const LoginPresenter = ({
   username,
   firstName,
   lastName,
-  onFacebookTap
+  onFacebookTap,
+  onSignUpTap
 }) => (
   <KeyboardAvoidingView style={{ flex: 1 }}>
     <Container>
@@ -107,11 +108,13 @@ const LoginPresenter = ({
           />
           <LoginButton
             text={"Sign Up"}
-            disabled={[firstName, lastName, email, password].includes("")}
+            disabled={[firstName, lastName, email, password, username].includes(
+              ""
+            )}
             onTap={
-              [firstName, lastName, email, password].includes("")
+              [firstName, lastName, email, password, username].includes("")
                 ? null
-                : onLoginTap
+                : onSignUpTap
             }
           />
           <FacebookLinkContainer>
@@ -138,7 +141,8 @@ LoginPresenter.propTypes = {
   login: PropTypes.bool.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
-  onFacebookTap: PropTypes.func.isRequired
+  onFacebookTap: PropTypes.func.isRequired,
+  onSignUpTap: PropTypes.func.isRequired
 };
 
 export default LoginPresenter;

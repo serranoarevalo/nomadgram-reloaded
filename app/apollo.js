@@ -4,7 +4,7 @@ import { getToken } from "./utils";
 const JWT = "jwt";
 
 const clientOptions = hasToken => ({
-  uri: "https://localhost:4000/graphql",
+  uri: "http://localhost:8000/graphql",
   clientState: {
     defaults: {
       auth: {
@@ -58,6 +58,14 @@ const clientOptions = hasToken => ({
         Authorization: `JWT ${token || ""}`
       }
     });
+  },
+  onError: ({ graphQLErrors, networkError }) => {
+    if (graphQLErrors && graphQLErrors.map) {
+      graphQLErrors.forEach(error => console.log(error.message));
+    }
+    if (networkError) {
+      console.log(networkError);
+    }
   }
 });
 

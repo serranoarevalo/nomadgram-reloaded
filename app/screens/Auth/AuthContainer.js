@@ -1,18 +1,29 @@
 import React from "react";
 import Axios from "axios";
 import { Facebook } from "expo";
+import DropdownAlert from "react-native-dropdownalert";
 import LoginPresenter from "./AuthPresenter";
+import { Mutation } from "react-apollo";
+import { LOG_IN, SIGN_UP, LOCAL_LOG_IN } from "./AuthQueries";
+
+class LoginMutation extends Mutation {}
+class SignUpMutation extends Mutation {}
+class LocalLogIn extends Mutation {}
 
 export default class extends React.Component {
-  state = {
-    username: "",
-    password: "",
-    login: false,
-    firstName: "",
-    lastName: "",
-    email: "",
-    avatar: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "nico",
+      password: "las",
+      login: false,
+      firstName: "as",
+      lastName: "as",
+      email: "nan@lala.com",
+      avatar: ""
+    };
+    this.notification = React.createRef();
+  }
   render() {
     const {
       username,
@@ -20,21 +31,64 @@ export default class extends React.Component {
       password,
       login,
       firstName,
-      lastName
+      lastName,
+      avatar
     } = this.state;
     return (
-      <LoginPresenter
-        email={email}
-        password={password}
-        login={login}
-        onChangeText={this.onChangeText}
-        onLoginTap={this.onLoginTap}
-        switchState={this.switchState}
-        username={username}
-        firstName={firstName}
-        lastName={lastName}
-        onFacebookTap={this.onFacebookTap}
-      />
+      <>
+        <LocalLogIn mutation={LOCAL_LOG_IN}>
+          {localLogIn => {
+            this.localLogIn = localLogIn;
+            return (
+              <LoginMutation
+                mutation={LOG_IN}
+                variables={{ username, password }}
+                onCompleted={this.handleCompleted}
+                onError={this.handleError}
+              >
+                {logIn => {
+                  this.logIn = logIn;
+                  return (
+                    <SignUpMutation
+                      mutation={SIGN_UP}
+                      variables={{
+                        username,
+                        password,
+                        firstName,
+                        lastName,
+                        email,
+                        avatar
+                      }}
+                      onCompleted={this.handleCompleted}
+                      onError={this.handleError}
+                    >
+                      {signUp => {
+                        this.signUp = signUp;
+                        return (
+                          <LoginPresenter
+                            email={email}
+                            password={password}
+                            login={login}
+                            onChangeText={this.onChangeText}
+                            onLoginTap={this.onLoginTap}
+                            onSignUpTap={this.onSignupTap}
+                            switchState={this.switchState}
+                            username={username}
+                            firstName={firstName}
+                            lastName={lastName}
+                            onFacebookTap={this.onFacebookTap}
+                          />
+                        );
+                      }}
+                    </SignUpMutation>
+                  );
+                }}
+              </LoginMutation>
+            );
+          }}
+        </LocalLogIn>
+        <DropdownAlert ref={this.notification} messageStyle={{ height: 500 }} />
+      </>
     );
   }
   onChangeText = (text, target) => {
@@ -43,16 +97,20 @@ export default class extends React.Component {
     });
   };
   onLoginTap = () => {
-    const { email, password } = this.state;
-    if ([email, password].includes("")) {
+    const { username, password } = this.state;
+    if ([username, password].includes("")) {
       return;
     }
+    this.logIn();
   };
   onSignupTap = () => {
     const { firstName, lastName, email, username, password } = this.state;
     if ([firstName, lastName, email, username, password].includes("")) {
       return;
     }
+    this.signUp().catch(e => {
+      console.log(e);
+    });
   };
   switchState = () => {
     this.setState(state => {
@@ -88,8 +146,17 @@ export default class extends React.Component {
         });
       }
     } catch (error) {
-      console.log(error);
-      alert("Can't Reach Facebook");
+      this.notification.alertWithType("error", "Error", "Can't Reach Facebook");
+    }
+  };
+  handleCompleted = data => {
+    const { logIn, createAccount } = data;
+    if (logIn && logIn.token) {
+      this.localLogIn({
+        variables: { token: logIn.token }
+      });
+    } else if (createAccount && createAccount.token) {
+      this.localLogIn({ variables: { token: createAccount.token } });
     }
   };
 }
