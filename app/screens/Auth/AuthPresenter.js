@@ -27,6 +27,21 @@ const Link = styled.Text`
   padding: 10px 0px;
 `;
 
+const FacebookLinkContainer = styled.View`
+  margin-top: 45px;
+  padding: 25px 0px;
+  border-color: ${Colors.lightGreyColor};
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-style: solid;
+`;
+
+const FacebookLinkText = styled.Text`
+  text-align: center;
+  color: ${Colors.blueColor};
+  font-weight: 600;
+`;
+
 const LoginPresenter = ({
   email,
   password,
@@ -36,7 +51,8 @@ const LoginPresenter = ({
   login,
   username,
   firstName,
-  lastName
+  lastName,
+  onFacebookTap
 }) => (
   <KeyboardAvoidingView style={{ flex: 1 }}>
     <Container>
@@ -79,6 +95,11 @@ const LoginPresenter = ({
             placeholder="Email"
           />
           <LoginInput
+            onChange={text => onChangeText(text, "username")}
+            value={username}
+            placeholder="Username"
+          />
+          <LoginInput
             onChange={text => onChangeText(text, "password")}
             value={password}
             inputType="password"
@@ -93,6 +114,11 @@ const LoginPresenter = ({
                 : onLoginTap
             }
           />
+          <FacebookLinkContainer>
+            <TouchableOpacity onPress={onFacebookTap}>
+              <FacebookLinkText>Connect with Facebook</FacebookLinkText>
+            </TouchableOpacity>
+          </FacebookLinkContainer>
         </Form>
       )}
       <TouchableOpacity onPress={switchState}>
@@ -111,7 +137,8 @@ LoginPresenter.propTypes = {
   switchState: PropTypes.func.isRequired,
   login: PropTypes.bool.isRequired,
   firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired
+  lastName: PropTypes.string.isRequired,
+  onFacebookTap: PropTypes.func.isRequired
 };
 
 export default LoginPresenter;

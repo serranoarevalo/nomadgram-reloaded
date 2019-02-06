@@ -1,15 +1,17 @@
 import React from "react";
+import Axios from "axios";
+import { Facebook } from "expo";
 import LoginPresenter from "./AuthPresenter";
-import { isEmail } from "../../utils";
 
 export default class extends React.Component {
   state = {
     username: "",
     password: "",
-    login: true,
+    login: false,
     firstName: "",
     lastName: "",
-    email: ""
+    email: "",
+    avatar: ""
   };
   render() {
     const {
@@ -31,6 +33,7 @@ export default class extends React.Component {
         username={username}
         firstName={firstName}
         lastName={lastName}
+        onFacebookTap={this.onFacebookTap}
       />
     );
   }
@@ -59,5 +62,34 @@ export default class extends React.Component {
         password: ""
       };
     });
+  };
+  onFacebookTap = async () => {
+    try {
+      const { type, token } = await Facebook.logInWithReadPermissionsAsync(
+        "324490305083660",
+        {
+          permissions: ["public_profile", "email"]
+        }
+      );
+      if (type === "success") {
+        const {
+          data: { email, first_name, id, last_name }
+        } = await Axios("https://graph.facebook.com/me", {
+          params: {
+            access_token: token,
+            fields: "first_name,last_name,email"
+          }
+        });
+        this.setState({
+          email,
+          firstName: first_name,
+          lastName: last_name,
+          avatar: `http://graph.facebook.com/${id}/picture?type=large`
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Can't Reach Facebook");
+    }
   };
 }
