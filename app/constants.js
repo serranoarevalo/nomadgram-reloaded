@@ -5,7 +5,8 @@ const { height, width } = Dimensions.get("screen");
 export const Layout = {
   width,
   height,
-  padding: 50
+  padding: 50,
+  borderRadius: "5px"
 };
 
 export const Colors = {
