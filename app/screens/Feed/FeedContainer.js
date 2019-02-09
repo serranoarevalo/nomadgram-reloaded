@@ -8,8 +8,14 @@ class FeedQuery extends Query {}
 export default class extends React.Component {
   render() {
     return (
-      <FeedQuery query={GET_FEED} variables={{ page: 0 }}>
-        {({ data, loading }) => <FeedPresenter data={data} loading={loading} />}
+      <FeedQuery
+        query={GET_FEED}
+        variables={{ page: 0 }}
+        fetchPolicy="cache-and-network"
+      >
+        {({ data, loading, error }) => (
+          <FeedPresenter data={data} loading={loading} error={error} />
+        )}
       </FeedQuery>
     );
   }
