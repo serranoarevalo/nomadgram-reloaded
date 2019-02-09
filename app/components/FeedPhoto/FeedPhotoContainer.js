@@ -62,13 +62,9 @@ export default class PhotoContainer extends React.Component {
               commentCount={commentCount}
               caption={caption}
               createdAt={createdAt}
-              updateNewComment={this.updateNewComment}
               isLiked={isLiked}
-              onLikeClick={this.onLikeClick}
-              onKeyUp={this.onKeyUp}
-              currentSlide={currentSlide}
-              onNextClick={this.onNextClick}
-              onPreviousClick={this.onPreviousClick}
+              updateNewComment={this.updateNewComment}
+              onLikeTap={this.onLikeTap}
             />
           );
         }}
@@ -76,7 +72,7 @@ export default class PhotoContainer extends React.Component {
     );
   }
 
-  onLikeClick = () => {
+  onLikeTap = () => {
     const { likeCount, isLiked } = this.props;
     this.toggleLike();
     this.setState(state => {
