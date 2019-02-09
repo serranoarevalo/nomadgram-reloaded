@@ -7,16 +7,16 @@ export default createAppContainer(
   createStackNavigator(
     {
       Tabs,
-      Upload: {
-        screen: Upload,
-        navigationOptions: {
-          title: "Upload Photo"
-        }
-      },
       TakePhoto: {
         screen: TakePhoto,
         navigationOptions: {
           header: null
+        }
+      },
+      Upload: {
+        screen: Upload,
+        navigationOptions: {
+          title: "Upload Photo"
         }
       }
     },

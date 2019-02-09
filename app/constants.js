@@ -11,6 +11,7 @@ export const Layout = {
 
 export const Colors = {
   greyColor: "#FAFAFA",
+  blackColor: "#242A37",
   darkGreyColor: "#999",
   lightGreyColor: "#e6e6e6",
   blueColor: "#3897f0",

@@ -1,3 +1,4 @@
+import React from "react";
 import { View } from "react-native";
 import {
   createBottomTabNavigator,
@@ -11,6 +12,7 @@ import Feed from "../screens/Feed";
 import Search from "../screens/Search";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
+import TabBarIcon from "../components/TabBarIcon";
 
 const CommonStack = (FirstScreen, FirstScreenOptions = {}) =>
   createStackNavigator({
@@ -42,19 +44,45 @@ const CommonStack = (FirstScreen, FirstScreenOptions = {}) =>
 export default createBottomTabNavigator(
   {
     Feed: {
-      screen: CommonStack(Feed)
+      screen: CommonStack(Feed),
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon name={focused ? "home" : "home-outline"} />
+        )
+      }
     },
     Search: {
-      screen: CommonStack(Search)
+      screen: CommonStack(Search),
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon name={focused ? "compass" : "compass-outline"} />
+        )
+      }
     },
     Upload: {
-      screen: View
+      screen: View,
+      navigationOptions: ({ navigation }) => {
+        return {
+          tabBarIcon: <TabBarIcon name={"plus-box-outline"} />,
+          tabBarOnPress: () => navigation.navigate("TakePhoto")
+        };
+      }
     },
     Notifications: {
-      screen: CommonStack(Notifications)
+      screen: CommonStack(Notifications),
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon name={focused ? "heart" : "heart-outline"} />
+        )
+      }
     },
     Profile: {
-      screen: CommonStack(Profile)
+      screen: CommonStack(Profile),
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon name={focused ? "account" : "account-outline"} />
+        )
+      }
     }
   },
   {

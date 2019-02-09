@@ -2,7 +2,7 @@ import React from "react";
 import { AsyncStorage } from "react-native";
 import { AppLoading, Font, Asset } from "expo";
 import { ApolloProvider } from "react-apollo";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { persistCache } from "apollo-cache-persist";
 import ApolloClient from "apollo-boost";
@@ -21,7 +21,7 @@ export default class App extends React.Component {
     try {
       await Asset.loadAsync([require("./assets/logo.png")]);
       await Font.loadAsync({
-        ...Ionicons.font
+        ...MaterialCommunityIcons.font
       });
       await persistCache({
         cache,
