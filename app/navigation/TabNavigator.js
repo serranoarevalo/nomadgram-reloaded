@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Image } from "react-native";
 import {
   createBottomTabNavigator,
   createStackNavigator
@@ -18,7 +18,9 @@ const CommonStack = (FirstScreen, FirstScreenOptions = {}) =>
   createStackNavigator({
     InitialScreen: {
       screen: FirstScreen,
-      ...FirstScreenOptions
+      navigationOptions: {
+        ...FirstScreenOptions
+      }
     },
     Likes: {
       screen: Likes,
@@ -44,7 +46,15 @@ const CommonStack = (FirstScreen, FirstScreenOptions = {}) =>
 export default createBottomTabNavigator(
   {
     Feed: {
-      screen: CommonStack(Feed),
+      screen: CommonStack(Feed, {
+        headerTitle: (
+          <Image
+            source={require("../assets/logo.png")}
+            style={{ height: 35 }}
+            resizeMode="contain"
+          />
+        )
+      }),
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <TabBarIcon name={focused ? "home" : "home-outline"} />
