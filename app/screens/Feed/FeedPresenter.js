@@ -26,6 +26,7 @@ const FeedPresenter = ({ loading, data, error }) => {
               files={image.files}
               creatorUsername={image.creator.username}
               creatorAvatar={image.creator.profile.avatar}
+              location={image.location}
             />
           ))}
         </ScrollView>

@@ -29,7 +29,8 @@ export default class PhotoContainer extends React.Component {
     super(props);
     this.state = {
       isLiked: props.isLiked,
-      likeCount: props.likeCount
+      likeCount: props.likeCount,
+      currentSlideHeight: 0
     };
   }
 
@@ -44,7 +45,7 @@ export default class PhotoContainer extends React.Component {
       createdAt,
       id
     } = this.props;
-    const { isLiked, likeCount, currentSlide } = this.state;
+    const { isLiked, likeCount, currentSlideHeight } = this.state;
     return (
       <ToggleLikeMutation
         mutation={TOGGLE_LIKE_IMAGE}
@@ -65,6 +66,8 @@ export default class PhotoContainer extends React.Component {
               isLiked={isLiked}
               updateNewComment={this.updateNewComment}
               onLikeTap={this.onLikeTap}
+              updateHeight={this.updateHeight}
+              currentSlideHeight={currentSlideHeight}
             />
           );
         }}
@@ -95,5 +98,11 @@ export default class PhotoContainer extends React.Component {
         likeCount: likeNumber
       };
     });
+  };
+
+  updateHeight = height => {
+    if (height > 0) {
+      this.setState({ currentSlideHeight: height });
+    }
   };
 }
